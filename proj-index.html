@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Index • Aiyanna</title>
+
+    <!-- Global site styles (fonts, header, cursor, etc.) -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Page-only styles -->
+    <link rel="stylesheet" href="proj-index.css" />
+
+    <!-- Icons (if your header uses lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="page-proj-index">
+
+    <!-- Cursor + spotlight (matches your site) -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+    </div>
+    <div class="spotlight"></div>
+
+    <!-- Shooting stars canvas -->
+    <canvas id="projSky" aria-hidden="true"></canvas>
+
+    <!-- Header (same layout as your other pages, no submenu) -->
+    <header class="site-header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a class="nav-link underline" href="about.html">about</a>
+                <a class="nav-link underline" href="work.html">work</a>
+                <a class="nav-link underline" href="proj-index.html">index</a>
+            </div>
+
+            <div class="nav-center">
+                <a class="brand" href="index.html">aiyanna lopez</a>
+            </div>
+
+            <div class="nav-right">
+                <a class="icon-link underline" href="https://youtube.com" target="_blank" rel="noreferrer"
+                    aria-label="YouTube">
+                    <i data-lucide="youtube"></i>
+                </a>
+                <a class="icon-link underline" href="https://instagram.com" target="_blank" rel="noreferrer"
+                    aria-label="Instagram">
+                    <i data-lucide="instagram"></i>
+                </a>
+                <a class="icon-link underline" href="https://substack.com" target="_blank" rel="noreferrer"
+                    aria-label="Substack">
+                    <i data-lucide="newspaper"></i>
+                </a>
+                <a class="icon-link underline" href="https://tumblr.com" target="_blank" rel="noreferrer"
+                    aria-label="Tumblr">
+                    <i data-lucide="message-circle"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="proj-wrap">
+        <section class="proj-grid" aria-label="Project index">
+
+            <!-- LEFT: scrollable links -->
+            <aside class="proj-left" aria-label="Links">
+                <div class="proj-scroll">
+                    <h2 class="proj-heading">external links</h2>
+
+                    <ul class="proj-list" aria-label="External projects">
+                        <li><a class="underline" href="https://mi-dulce-pjel.square.site/" target="_blank"
+                                rel="noreferrer">Mi Dulce PJEL</a></li>
+                        <li><a class="underline" href="https://outerrabrands.com/" target="_blank"
+                                rel="noreferrer">Outerra Brands</a></li>
+                        <li><a class="underline" href="https://birdsetc.vercel.app/" target="_blank"
+                                rel="noreferrer">Birds Etc</a></li>
+                        <li><a class="underline" href="https://ty-disruption.vercel.app/" target="_blank"
+                                rel="noreferrer">TY Disruption</a></li>
+                    </ul>
+
+                    <div class="proj-divider"></div>
+
+                    <h2 class="proj-heading">github repositories</h2>
+
+                    <ul class="proj-list" aria-label="GitHub repositories">
+                        <li><a class="underline" href="https://github.com/aiyannaaaaa/birdsetc" target="_blank"
+                                rel="noreferrer">birdsetc</a></li>
+                        <li><a class="underline" href="https://github.com/aiyannaaaaa/ty_disruption" target="_blank"
+                                rel="noreferrer">ty_disruption</a></li>
+                        <li><a class="underline" href="https://github.com/aiyannaaaaa/matchayan" target="_blank"
+                                rel="noreferrer">matchayan</a></li>
+                        <li><a class="underline is-featured" href="https://github.com/aiyannaaaaa/matchayan"
+                                target="_blank" rel="noreferrer">this portflio site</a></li>
+                    </ul>
+
+                    <div class="proj-divider"></div>
+
+                    <h2 class="proj-heading">pdf</h2>
+
+                    <ul class="proj-list" aria-label="PDF downloads">
+                        <li>
+                            <a class="underline"
+                                href="https://drive.google.com/file/d/1PZ0Sq86vRXe5gpgtv-VWR9QYFKfeJ4L6/view?usp=sharing"
+                                target="_blank" rel="noreferrer">
+                                Elsewhere, Within (view)
+                            </a>
+                        </li>
+                        <li>
+                            <a class="underline"
+                                href="https://drive.google.com/uc?export=download&id=1PZ0Sq86vRXe5gpgtv-VWR9QYFKfeJ4L6"
+                                target="_blank" rel="noreferrer">
+                                Elsewhere, Within (download)
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </aside>
+
+            <!-- RIGHT: big title -->
+            <div class="proj-right" aria-label="Index title">
+                <div class="proj-title-wrap">
+                    <div class="proj-kicker">project</div>
+                    <div class="proj-title">Index</div>
+                    <div class="proj-sub">links + repos + pdf</div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Global site JS -->
+    <script src="script.js"></script>
+
+    <!-- Page-only JS -->
+    <script src="proj-index.js"></script>
+</body>
+
+</html>

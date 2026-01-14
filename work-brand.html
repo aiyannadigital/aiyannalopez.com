@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brand • Aiyanna</title>
+
+  <!-- Global site styles (header, fonts, cursor base styles, etc.) -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Brand-only styles -->
+  <link rel="stylesheet" href="brand.css" />
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="page-brand">
+
+  <!-- Cursor + spotlight -->
+  <div class="cursor">
+    <div class="cursor-dot"></div>
+  </div>
+  <div class="spotlight"></div>
+
+  <!-- Stars canvas -->
+  <canvas id="brandSky" aria-hidden="true"></canvas>
+
+  <!-- Header (same as your existing header markup) -->
+  <header class="site-header">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-link underline" href="about.html">about</a>
+
+        <div class="nav-dropdown">
+          <button class="nav-link underline dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            work
+          </button>
+          <div class="dropdown-menu" role="menu" aria-label="Work submenu">
+            <a class="dropdown-item" href="work-brand.html" role="menuitem">e-commerce</a>
+            <a class="dropdown-item" href="work-web.html" role="menuitem">creative code</a>
+            <a class="dropdown-item" href="work-visual.html" role="menuitem">narrative</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-center">
+        <a class="brand" href="index.html">aiyanna lopez</a>
+      </div>
+
+      <div class="nav-right">
+        <a class="icon-link underline" href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube">
+          <i data-lucide="youtube"></i>
+        </a>
+        <a class="icon-link underline" href="https://instagram.com" target="_blank" rel="noreferrer"
+          aria-label="Instagram">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a class="icon-link underline" href="https://substack.com" target="_blank" rel="noreferrer"
+          aria-label="Substack">
+          <i data-lucide="newspaper"></i>
+        </a>
+        <a class="icon-link underline" href="https://tumblr.com" target="_blank" rel="noreferrer" aria-label="Tumblr">
+          <i data-lucide="message-circle"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="brand-wrap">
+    <!-- big invisible stage where items get placed -->
+    <section class="brand-stage" aria-label="Brand work canvas">
+      <div id="brandItems" class="brand-items"></div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="brand-modal" id="brandModal" aria-hidden="true">
+    <div class="brand-modal__backdrop" data-close="true"></div>
+
+    <div class="brand-modal__panel" role="dialog" aria-modal="true" aria-label="Project details">
+      <button class="brand-modal__close underline" type="button" aria-label="Close" data-close="true">close</button>
+
+      <div class="brand-modal__content">
+        <div class="brand-modal__media">
+          <img id="modalImg" alt="" />
+        </div>
+
+        <div class="brand-modal__text">
+          <h2 id="modalTitle" class="brand-modal__title"></h2>
+          <p id="modalMeta" class="brand-modal__meta"></p>
+          <div id="modalBody" class="brand-modal__body"></div>
+          <div id="modalLinks" class="brand-modal__links"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global site JS (dropdown/cursor if you already have it there) -->
+  <script src="script.js"></script>
+
+  <!-- Brand-only JS -->
+  <script src="brand.js"></script>
+</body>
+
+</html>

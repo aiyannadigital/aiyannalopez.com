@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About • Aiyanna</title>
+
+  <!-- Global site styles (header, fonts, cursor base styles, etc.) -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- About-only styles -->
+  <link rel="stylesheet" href="about.css" />
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="page-about">
+
+  <!-- Cursor + spotlight -->
+  <div class="cursor">
+    <div class="cursor-dot"></div>
+  </div>
+  <div class="spotlight"></div>
+
+  <!-- Shooting stars canvas (ONLY ONE canvas id) -->
+  <canvas id="aboutSky" aria-hidden="true"></canvas>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-link underline" href="about.html">about</a>
+        <a class="nav-link underline" href="work.html">work</a>
+        <a class="nav-link underline" href="proj-index.html">index</a>
+      </div>
+      </div>
+
+      <div class="nav-center">
+        <a class="brand" href="index.html">aiyanna lopez</a>
+      </div>
+
+      <div class="nav-right">
+        <a class="icon-link underline" href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube">
+          <i data-lucide="youtube"></i>
+        </a>
+        <a class="icon-link underline" href="https://instagram.com" target="_blank" rel="noreferrer"
+          aria-label="Instagram">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a class="icon-link underline" href="https://substack.com" target="_blank" rel="noreferrer"
+          aria-label="Substack">
+          <i data-lucide="newspaper"></i>
+        </a>
+        <a class="icon-link underline" href="https://tumblr.com" target="_blank" rel="noreferrer" aria-label="Tumblr">
+          <i data-lucide="message-circle"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="about-wrap">
+    <section class="about-grid">
+
+      <!-- LEFT -->
+      <div class="about-left">
+        <h1 class="about-title">
+          <!-- Left marquee -->
+          <div class="marquee" aria-label="get to know">
+            <div class="marquee-track">
+              <div class="marquee-set">
+                <span>GET TO KNOW</span><span class="sep">•</span>
+                <span>GET TO KNOW</span><span class="sep">•</span>
+                <span>GET TO KNOW</span><span class="sep">•</span>
+                <span>GET TO KNOW</span><span class="sep">•</span>
+              </div>
+
+              <div class="marquee-set" aria-hidden="true">
+                <span>GET TO KNOW</span><span class="sep">•</span>
+                <span>GET TO KNOW</span><span class="sep">•</span>
+                <span>GET TO KNOW</span><span class="sep">•</span>
+                <span>GET TO KNOW</span><span class="sep">•</span>
+              </div>
+            </div>
+          </div>
+
+          <span class="about-name">Aiyanna</span>
+        </h1>
+
+        <!-- Contact form (bottom of left column) -->
+        <form class="about-contact" action="https://formspree.io/f/meeeqbpv" method="POST">
+          <h3 class="contact-heading">get in touch</h3>
+
+          <label class="sr-only" for="contact-name">Name</label>
+          <input id="contact-name" type="text" name="name" placeholder="Name" required />
+
+          <label class="sr-only" for="contact-email">Email</label>
+          <input id="contact-email" type="email" name="email" placeholder="Email" required />
+
+          <label class="sr-only" for="contact-message">Inquiry</label>
+          <textarea id="contact-message" name="message" placeholder="Inquiry" rows="4" required></textarea>
+
+          <input type="hidden" name="_subject" value="New inquiry from aiyannalopez.com" />
+
+          <button type="submit" class="underline">Send</button>
+        </form>
+      </div>
+
+      <!-- RIGHT -->
+      <aside class="about-right">
+        <div class="about-scroll" role="region" aria-label="About writing">
+          <h2 class="about-heading">hi!</h2>
+
+          <p><strong>I'm Aiyanna</strong><i> — USC Media Arts + Practice '25</i></p>
+
+          <p>
+            I’m a creative designer and media artist with over five years of experience shaping visual identities,
+            websites,
+            and digital experiences. My work brings together storytelling, design, and thoughtful systems to create
+            visuals
+            that feel cohesive, intentional, and human.
+          </p>
+
+          <p>
+            I’m especially drawn to building identities, whether for brands, individuals, or creative projects that need
+            a clear
+            visual voice. I enjoy thinking through how a brand looks, moves, and communicates across platforms, from
+            typography
+            and color to layout, imagery, and motion. I care about consistency, but I also care about expression. The
+            balance
+            between clarity and personality is where I feel most at home.
+          </p>
+
+          <p>
+            My background spans freelance, agency, and in-house roles, where I’ve worked across branding, web design,
+            e-commerce,
+            and digital campaigns for lifestyle and travel clients. These experiences have shaped the way I approach
+            design:
+            with flexibility, strong communication, and an understanding of how visuals live in the real world.
+          </p>
+
+          <p>
+            I approach design as a form of visual storytelling. I think about pacing, hierarchy, and structure the same
+            way I
+            think about narrative. Every element should serve a purpose, guide the viewer, and contribute to a cohesive
+            experience.
+          </p>
+
+          <p>
+            Right now, I’m focused on growing a body of work centered on brand identity, web design, and visual
+            direction,
+            while continuing to explore new ways of combining digital craft with creative intuition. I enjoy projects
+            that allow
+            space for exploration, detail, and care.
+          </p>
+
+          <!-- Right marquee (obsessed) -->
+          <div class="about-obsessed" aria-label="currently obsessed with">
+            <div class="obsessed-track">
+              <div class="obsessed-set">
+                <span>brand systems</span><span class="dot">·</span>
+                <span>editorial layouts</span><span class="dot">·</span>
+                <span>typography</span><span class="dot">·</span>
+                <span>visual identities</span><span class="dot">·</span>
+                <span>motion details</span><span class="dot">·</span>
+                <span>playful interfaces</span><span class="dot">·</span>
+                <span>experimental web</span><span class="dot">·</span>
+                <span>designing worlds</span><span class="dot">·</span>
+              </div>
+
+              <div class="obsessed-set" aria-hidden="true">
+                <span>brand systems</span><span class="dot">·</span>
+                <span>editorial layouts</span><span class="dot">·</span>
+                <span>typography</span><span class="dot">·</span>
+                <span>visual identities</span><span class="dot">·</span>
+                <span>motion details</span><span class="dot">·</span>
+                <span>playful interfaces</span><span class="dot">·</span>
+                <span>experimental web</span><span class="dot">·</span>
+                <span>designing worlds</span><span class="dot">·</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional links (uncomment if you want) -->
+          <!--
+          <p class="about-links">
+            <a class="underline" href="mailto:aiyannadigital@gmail.com">email</a>
+            <span> · </span>
+            <a class="underline" href="#">resume</a>
+            <span> · </span>
+            <a class="underline" href="#">instagram</a>
+          </p>
+          -->
+
+        </div>
+      </aside>
+
+    </section>
+  </main>
+
+  <!-- Global site JS -->
+  <script src="script.js"></script>
+
+  <!-- About-only JS -->
+  <script src="about.js"></script>
+</body>
+
+</html>

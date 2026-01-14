@@ -1,0 +1,326 @@
+/* ===============================
+   WORK PAGE ONLY
+   - no page scroll
+   - text LEFT of image
+   - modal ABOVE cursor
+   - modal supports VIDEO + 2 LINKS
+================================ */
+
+.page-work {
+  height: 200vh;
+  overflow: visible;
+}
+
+/* stars canvas behind everything */
+.page-work #workSky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* content above canvas */
+.page-work .site-header,
+.page-work .work-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+/* stage takes remaining viewport under header */
+.page-work .work-wrap {
+  height: calc(200vh - 56px);
+}
+
+.page-work .work-stage {
+  position: relative;
+  width: 100%;
+  height: calc(200vh - 56px);
+  padding: clamp(18px, 3vw, 44px);
+  overflow: hidden;
+}
+
+/* ===============================
+   TILE (text LEFT, image RIGHT)
+================================ */
+
+.page-work .work-tile {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 220px .5fr;
+  /* text | image */
+  column-gap: 16px;
+  align-items: start;
+
+  border: none;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+
+  width: clamp(420px, 44vw, 560px);
+}
+
+.page-work .work-info {
+  display: grid;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.page-work .work-name {
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.page-work .work-meta {
+  font-family: "Pix32", monospace;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  opacity: 0.55;
+}
+
+.page-work .work-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* gentle hover */
+.page-work .work-tile:hover {
+  transform: translateY(-3px);
+  transition: transform 140ms ease;
+}
+
+/* ===============================
+   MODAL (above cursor)
+================================ */
+
+.page-work .work-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  /* ✅ above cursor */
+  display: none;
+}
+
+.page-work .work-modal.is-open {
+  display: block;
+}
+
+.page-work .work-modal,
+.page-work .work-modal * {
+  pointer-events: auto;
+}
+
+.page-work .work-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+/* modal card */
+.page-work .work-modal-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  width: min(980px, calc(100vw - 40px));
+  max-height: min(82vh, 820px);
+  overflow: auto;
+
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+  padding: 18px 18px 24px;
+}
+
+.page-work .work-modal-close {
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  margin-left: auto;
+  display: block;
+  opacity: 0.7;
+}
+
+.page-work .work-modal-close:hover {
+  opacity: 1;
+}
+
+/* body layout */
+.page-work .work-modal-body {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+/* media container holds img OR video */
+.page-work .work-modal-media {
+  width: 100%;
+}
+
+.page-work .work-modal-img,
+.page-work .work-modal-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+
+/* video polish */
+.page-work .work-modal-video {
+  background: rgba(0, 0, 0, 0.06);
+  outline: none;
+}
+
+/* text */
+.page-work .work-modal-title {
+  margin: 0 0 10px 0;
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.page-work .work-modal-meta {
+  margin: 0 0 14px 0;
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  opacity: 0.65;
+}
+
+.page-work .work-modal-desc {
+  margin: 0 0 16px 0;
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  opacity: 0.4;
+}
+
+/* links/buttons */
+.page-work .work-modal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.page-work .work-modal-link {
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  opacity: 0.85;
+  padding: 4px 0;
+}
+
+.page-work .work-modal-link:hover {
+  opacity: 1;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 860px) {
+  .page-work .work-stage {
+    padding: 18px;
+  }
+
+  .page-work .work-tile {
+    width: min(92vw, 560px);
+    grid-template-columns: 180px 1fr;
+  }
+
+  .page-work .work-modal-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Cursor always above modals */
+.cursor {
+  z-index: 50000 !important;
+}
+
+.cursor-dot {
+  z-index: 50001 !important;
+}
+
+.spotlight {
+  z-index: 40000 !important;
+  /* optional */
+}
+
+/* Ensure modal stays clickable even with cursor on top */
+.work-modal,
+.work-modal * {
+  pointer-events: auto;
+}
+
+/* Cursor should NEVER block clicks */
+.cursor,
+.cursor-dot,
+.spotlight {
+  pointer-events: none !important;
+}
+
+
+/* Cursor container (ring) */
+.cursor {
+  position: fixed;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Cursor dot — always centered */
+.cursor-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.work-modal-media {
+  display: grid;
+  gap: 14px;
+}
+
+.work-modal-img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+.page-work .site-header{
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}

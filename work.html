@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,8 +8,8 @@
 
 
   <!-- Favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-16.png">
   <!-- Global site styles -->
   <link rel="stylesheet" href="styles.css" />
   <!-- Work-only styles -->
@@ -22,7 +23,9 @@
 <body class="page-work">
 
   <!-- Cursor + spotlight -->
-  <div class="cursor"><div class="cursor-dot"></div></div>
+  <div class="cursor">
+    <div class="cursor-dot"></div>
+  </div>
   <div class="spotlight"></div>
 
   <!-- Stars -->
@@ -35,6 +38,10 @@
         <a class="nav-link underline" href="about.html">about</a>
         <a class="nav-link underline is-active" href="work.html">work</a>
         <a class="nav-link underline" href="proj-index.html">index</a>
+        <button class="theme-toggle underline" type="button" id="themeToggle" aria-label="Toggle dark mode"
+          aria-pressed="false">
+          ☾
+        </button>
       </div>
 
       <div class="nav-center">
@@ -45,7 +52,8 @@
         <a class="icon-link underline" href="https://youtube.com" target="_blank"><i data-lucide="youtube"></i></a>
         <a class="icon-link underline" href="https://instagram.com" target="_blank"><i data-lucide="instagram"></i></a>
         <a class="icon-link underline" href="https://substack.com" target="_blank"><i data-lucide="newspaper"></i></a>
-        <a class="icon-link underline" href="https://tumblr.com" target="_blank"><i data-lucide="message-circle"></i></a>
+        <a class="icon-link underline" href="https://tumblr.com" target="_blank"><i
+            data-lucide="message-circle"></i></a>
       </div>
     </nav>
   </header>
@@ -54,11 +62,8 @@
     <section class="work-stage" id="workStage">
 
       <!-- OLYMPIA USA -->
-      <button class="work-tile"
-        data-title="Olympia USA"
-        data-meta="E-Commerce Web Design • 2025"
-        data-youtube="hA1Tk3f6CYo"
-        data-img="imgs/1.png"
+      <button class="work-tile" data-title="Olympia USA" data-meta="E-Commerce Web Design • 2025"
+        data-youtube="hA1Tk3f6CYo" data-img="imgs/1.png"
         data-desc="Revitalized the digital presence of a long-established luggage brand by leading a complete website redesign and development project aimed at appealing to a younger, style-conscious audience while preserving the brand’s reputation for quality.
 
 Worked directly with the VP and marketing team to blend modern design trends with proven e-commerce sales strategies, incorporating optimized product categorization, strategic upselling, and a streamlined checkout experience. Introduced a responsive, mobile-first design that improved site speed, usability, and visual impact.
@@ -73,11 +78,8 @@ Post-launch, the new website achieved the highest online sales in company histor
       </button>
 
       <!-- elsewhere within -->
-      <button class="work-tile"
-        data-title="Elsehwere, Within."
-        data-meta="Narrative + Graphic Design • 2025"
-        data-youtube=none
-        data-img="imgs/ew.png"
+      <button class="work-tile" data-title="Elsehwere, Within." data-meta="Narrative + Graphic Design • 2025"
+        data-youtube=none data-img="imgs/ew.png"
         data-desc="Elsewhere, Within is an interactive publication that transforms the familiar structure of an activity book into a meditative space for self-reflection. Through a series of prompts, games, and visual exercises, the project invites readers to engage slowly and intentionally with the page—treating each activity not as a task to complete, but as an opportunity to pause, notice, and reconnect with themselves.
 The book reimagines formats like word searches, mazes, fill-in-the-blanks, and poetry exercises as reflective tools, shifting them away from traditional notions of play and productivity. Each section encourages creative participation through writing, drawing, and intuitive decision-making. The result is a tactile, analog experience that emphasizes process over product, embracing imperfection, curiosity, and presence.
 Visually, Elsewhere, Within uses calm, minimal design to hold space for introspection. The addition of subtle color, spacious margins, and gentle typography supports the act of slowing down. Each page is designed to feel open and inviting, allowing readers to bring their own meanings to the work.
@@ -88,19 +90,13 @@ Elsewhere, Within exists as both an art object and an invitation—a reminder th
           <span class="work-name">Elsehwere, Within.</span>
           <span class="work-meta">Narrative + Graphic Design • 2025</span>
         </span>
-        <img class="work-img" src="imgs/ew.png" alt="Elsewhere, Within."/>
+        <img class="work-img" src="imgs/ew.png" alt="Elsewhere, Within." />
       </button>
 
       <!-- LOOM -->
-      <button class="work-tile"
-        data-title="LOOM"
-        data-meta="Creative Code • 2023"
-        data-youtube="E_He4EIbW0Q"
-        data-img="imgs/2.png"
-        data-link-1-label="Live Site"
-        data-link-1-url="https://ty-disruption.vercel.app/"
-        data-link-2-label="GitHub"
-        data-link-2-url="https://github.com/aiyannaaaaa/ty_disruption"
+      <button class="work-tile" data-title="LOOM" data-meta="Creative Code • 2023" data-youtube="E_He4EIbW0Q"
+        data-img="imgs/2.png" data-link-1-label="Live Site" data-link-1-url="https://ty-disruption.vercel.app/"
+        data-link-2-label="GitHub" data-link-2-url="https://github.com/aiyannaaaaa/ty_disruption"
         data-desc="Loom is a platform coded from scratch using HTML, CSS, and JavaScript, created to challenge conventional norms of social media and web design. Inspired by Olia Lialina’s Vernacular Web, Loom disrupts rigid grid layouts and standardized design, embracing disorder to reflect the complexities of human connection.
 
 This project critiques the increasing uniformity of modern web development by blending creative coding frameworks like P5.js and Three.js to introduce fluid, nonlinear interactions. Content spills beyond boundaries, intertwining to create a dynamic and unpredictable user experience.
@@ -115,10 +111,7 @@ Loom is both a commentary on the limitations of structured design and an experim
       </button>
 
       <!-- BIRDS ETC -->
-      <button class="work-tile"
-        data-title="Birds Etc."
-        data-meta="Creative Code • 2024"
-        data-youtube="e1svqYoYnA4"
+      <button class="work-tile" data-title="Birds Etc." data-meta="Creative Code • 2024" data-youtube="e1svqYoYnA4"
         data-img="imgs/3.png"
         data-desc="I was sitting on my front porch one day, watching the birds come and go at my neighbor’s camera bird feeder. As I observed them, I couldn’t help but think about how fascinating it would be to document these birds—not just for the sake of cataloging them, but to explore how we capture and make sense of the natural world around us.
 
@@ -132,10 +125,7 @@ This site is an experiment in documentation—less about final outcomes and more
       </button>
 
       <!-- MATCHAYAN -->
-      <button class="work-tile"
-        data-title="matchayan"
-        data-meta="Creative Code • 2024"
-        data-youtube="sAONflLda_M"
+      <button class="work-tile" data-title="matchayan" data-meta="Creative Code • 2024" data-youtube="sAONflLda_M"
         data-img="imgs/4.png"
         data-desc="A personal website that blends creativity and exploration, showcasing my recent favorites and interests. It functions as a playful, evolving space to experiment with ideas, document curiosities, and test new interactions in a low-pressure, exploratory environment.">
 
@@ -147,10 +137,7 @@ This site is an experiment in documentation—less about final outcomes and more
       </button>
 
       <!-- OUTERRA -->
-      <button class="work-tile"
-        data-title="Outerra"
-        data-meta="Branding + Web Design • 2025"
-        data-youtube="BGGH-K60c0I"
+      <button class="work-tile" data-title="Outerra" data-meta="Branding + Web Design • 2025" data-youtube="BGGH-K60c0I"
         data-img="imgs/5.png"
         data-desc="Partnered with a travel gear startup to create a sleek, futuristic online store that reflected the brand’s emphasis on durability, innovation, and style for the modern traveler.
 
@@ -164,11 +151,8 @@ Directed every stage of the web design process—from wireframing and visual des
       </button>
 
       <!-- MI DULCE PJEL -->
-      <button class="work-tile"
-        data-title="Mi Dulce P’jel"
-        data-meta="E-Commerce Web Design • 2025"
-        data-youtube="JoAPY2k6ju4"
-        data-img="imgs/6.png"
+      <button class="work-tile" data-title="Mi Dulce P’jel" data-meta="E-Commerce Web Design • 2025"
+        data-youtube="JoAPY2k6ju4" data-img="imgs/6.png"
         data-desc="Reimagined the brand identity and online experience for a boutique skincare business through a complete rebrand and website rebuild. The refreshed visual direction emphasizes clarity, confidence, and care while delivering a smoother, more intuitive shopping experience.">
 
         <span class="work-info">
@@ -179,10 +163,7 @@ Directed every stage of the web design process—from wireframing and visual des
       </button>
 
       <!-- GRANOS -->
-      <button class="work-tile"
-        data-title="Granos"
-        data-meta="Independent Short Film • 2024"
-        data-youtube="rLWHHfDYhTI"
+      <button class="work-tile" data-title="Granos" data-meta="Independent Short Film • 2024" data-youtube="rLWHHfDYhTI"
         data-img="imgs/8.png"
         data-desc="When a young perfectionist sets out to build his first-ever sandcastle, he must learn to embrace imperfection and accept the challenges that come with bringing visions to life.
 
@@ -218,4 +199,5 @@ Granos is an intimate reflection on creativity, perfectionism, and the struggle 
   <script src="script.js"></script>
   <script src="work.js"></script>
 </body>
+
 </html>

@@ -367,3 +367,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   requestAnimationFrame(draw);
 });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggle");
+  const KEY = "theme";
+
+  function applyTheme(mode){
+    const isDark = mode === "dark";
+    root.classList.toggle("is-dark", isDark);
+
+    if (btn){
+      btn.setAttribute("aria-pressed", String(isDark));
+      btn.textContent = isDark ? "☀︎" : "☾";
+    }
+  }
+
+  // Load saved theme (default = light)
+  const saved = localStorage.getItem(KEY);
+  if (saved){
+    applyTheme(saved);
+  } else {
+    applyTheme("light");
+  }
+
+  if (btn){
+    btn.addEventListener("click", () => {
+      const next = root.classList.contains("is-dark") ? "light" : "dark";
+      localStorage.setItem(KEY, next);
+      applyTheme(next);
+    });
+  }
+});

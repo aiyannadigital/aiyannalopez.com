@@ -1,3 +1,32 @@
+/* Dark mode via full inversion */
+html.is-dark{
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Re-invert ONLY media (so photos/videos look normal) */
+html.is-dark img,
+html.is-dark video,
+html.is-dark iframe{
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* IMPORTANT: do NOT re-invert canvas, so your JS animations invert too */
+
+.theme-toggle{
+  font-size: 14px;          /* matches your pixel scale */
+  line-height: 1;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.theme-toggle:hover{
+  opacity: 0.7;
+}
+
+
 @font-face {
   font-family: "Aston Script";
   src: url("fonts/Aston Script.ttf") format("truetype");

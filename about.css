@@ -1,8 +1,14 @@
-/* ================= ABOUT PAGE ONLY (HARD OVERRIDES) ================= */
+/* =========================================================
+   ABOUT PAGE ONLY — FULL STYLES (CENTERED HALVES + HIDDEN SCROLLBAR)
+========================================================= */
+
+/* ================= ABOUT WRAP ================= */
 
 .page-about .about-wrap {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100dvh - 56px);
   padding: 28px 0 48px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Canvas behind everything */
@@ -13,58 +19,70 @@
   pointer-events: none;
 }
 
-/* Keep content above canvas
-   IMPORTANT: header must sit ABOVE about content so dropdown can overlay */
+/* Header above content so dropdown overlays */
 .page-about .site-header {
   position: relative;
   z-index: 50;
-  /* ⬅️ raised so dropdown is always clickable */
 }
 
-.page-about .about-wrap {
-  position: relative;
-  z-index: 1;
-  /* ⬅️ lower than header (prevents content stealing hover) */
-}
+/* ================= GRID (TWO TRUE HALVES) ================= */
 
-/* ================= GRID (FORCED) ================= */
+/* Big centered stage so it feels consistent on all screens */
 .page-about .about-grid {
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
+  width: min(1600px, 100%);
+  margin: 0 auto;
 
-  padding-left: clamp(22px, 4vw, 72px) !important;
-  padding-right: clamp(14px, 2vw, 40px) !important;
+  padding-left: clamp(18px, 4vw, 80px);
+  padding-right: clamp(18px, 4vw, 80px);
 
-  display: grid !important;
-  grid-auto-flow: row !important;
+  display: grid;
+  align-items: start;
 
-  grid-template-columns: minmax(0, .79fr) minmax(380px, clamp(480px, 36vw, 800px)) !important;
+  /* true halves */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 
-  column-gap: clamp(22px, 3vw, 70px) !important;
-  align-items: start !important;
+  /* this is what pushes content away from the center line */
+  column-gap: clamp(70px, 10vw, 180px);
 }
 
-/* Force each column into its grid slot */
+/* Left column */
 .page-about .about-left {
-  grid-column: 1 !important;
-  grid-row: 1 !important;
+  grid-column: 1;
+  grid-row: 1;
 
-  padding-top: clamp(18px, 3.6vw, 52px) !important;
+  padding-top: clamp(18px, 3.6vw, 52px);
 
-  display: flex !important;
-  flex-direction: column !important;
+  display: flex;
+  flex-direction: column;
 
-  min-height: calc(100vh - 56px - 120px) !important;
+  /* stable vertical layout */
+  min-height: calc(100dvh - 56px - 110px);
+
+  /* center the "column content" within the left half */
+  justify-self: stretch;
+  padding-right: clamp(10px, 1.5vw, 24px);
 }
 
+/* Right column */
 .page-about .about-right {
-  grid-column: 2 !important;
-  grid-row: 1 !important;
+  grid-column: 2;
+  grid-row: 1;
 
-  padding-top: clamp(14px, 3vw, 54px) !important;
-  justify-self: end !important;
-  width: 100% !important;
+  padding-top: clamp(14px, 3vw, 54px);
+
+  justify-self: stretch;
+  width: 100%;
+  min-width: 0;
+
+  /* center the "panel" within the right half */
+  padding-left: clamp(10px, 1.5vw, 24px);
+}
+
+/* If viewport is short, relax heights a bit */
+@media (max-height: 760px) {
+  .page-about .about-left {
+    min-height: calc(100dvh - 56px - 90px);
+  }
 }
 
 /* ================= LEFT TITLE ================= */
@@ -73,72 +91,99 @@
   line-height: 1 !important;
 }
 
-/* ===== LEFT MARQUEE (CLEAN, NO CONNECTING) ===== */
+/* ===== LEFT MARQUEE ===== */
 .page-about .marquee {
-  width: 100% !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  margin-bottom: 14px !important;
+  width: 100%;
+  max-width: 720px;              /* centers content in the half */
+  margin-left: auto;
+  margin-right: auto;
+
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 14px;
 }
 
 .page-about .marquee-track {
-  display: inline-flex !important;
-  align-items: baseline !important;
-  gap: 72px !important;
-  will-change: transform !important;
-  animation: aboutMarquee 12s linear infinite !important;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 72px;
+  will-change: transform;
+  animation: aboutMarquee 12s linear infinite;
 }
 
 .page-about .marquee-set {
-  display: inline-flex !important;
-  align-items: baseline !important;
-  gap: 34px !important;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 34px;
 }
 
-.page-about .marquee-set>span {
-  font-family: "Pix32", monospace !important;
-  font-size: clamp(22px, 2.6vw, 34px) !important;
-  letter-spacing: 0.22em !important;
-  text-transform: uppercase !important;
-  opacity: 0.95 !important;
+.page-about .marquee-set > span {
+  font-family: "Pix32", monospace;
+  font-size: clamp(22px, 2.6vw, 34px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.95;
 }
 
-.page-about .marquee-set>.sep {
-  letter-spacing: 0 !important;
-  opacity: 0.8 !important;
+.page-about .marquee-set > .sep {
+  letter-spacing: 0;
+  opacity: 0.8;
 }
 
 @keyframes aboutMarquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* Name */
 .page-about .about-name {
-  display: block !important;
-  margin-top: 56px !important;
-  font-family: "Aston Script", serif !important;
-  font-size: clamp(64px, 9vw, 120px) !important;
-  line-height: 0.95 !important;
-  letter-spacing: 0.01em !important;
+  display: block;
+  margin-top: 56px;
+
+  width: 100%;
+  max-width: 720px;              /* centers content in the half */
+  margin-left: auto;
+  margin-right: auto;
+
+  font-family: "Aston Script", serif;
+  font-size: clamp(64px, 9vw, 120px);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
 }
 
 /* ================= RIGHT SCROLL COLUMN ================= */
+
 .page-about .about-scroll {
-  height: calc(100vh - 56px - 120px) !important;
-  overflow-y: auto !important;
+  /* keep it centered within the right half */
+  width: 100%;
+  max-width: 980px;              /* ✅ wider text block like you asked */
+  margin-left: auto;
+  margin-right: auto;
 
-  padding: 8px clamp(18px, 2.8vw, 56px) 20px 18px !important;
-  border-left: 1px solid rgba(0, 0, 0, 0.12) !important;
+  height: calc(100dvh - 56px - 140px);
+  overflow-y: auto;
 
-  width: 830px !important;
-  max-width: none !important;
-  box-sizing: border-box !important;
+  padding: 10px clamp(18px, 2.2vw, 44px) 22px 18px;
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+
+  box-sizing: border-box;
+  min-width: 0;
+
+  /* ✅ invisible scrollbar (still scrolls) */
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE/Edge legacy */
+}
+
+.page-about .about-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* If viewport is short, allow more room */
+@media (max-height: 760px) {
+  .page-about .about-scroll {
+    height: calc(100dvh - 56px - 110px);
+  }
 }
 
 .page-about .about-scroll,
@@ -149,192 +194,188 @@
 }
 
 .page-about .about-heading {
-  margin: 0 0 16px 0 !important;
-  font-size: 20px !important;
-  letter-spacing: 0.22em !important;
-  opacity: 0.95 !important;
-  text-transform: uppercase !important;
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  letter-spacing: 0.22em;
+  opacity: 0.95;
+  text-transform: uppercase;
 }
 
 .page-about .about-scroll p {
-  margin: 0 0 16px 0 !important;
-  font-size: 16px !important;
-  line-height: 1.65 !important;
-  color: var(--muted) !important;
-  max-width: none !important;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: none;
 }
 
 .page-about .about-scroll strong {
-  color: var(--ink) !important;
-}
-
-/* Scrollbar */
-.page-about .about-scroll::-webkit-scrollbar {
-  width: 10px;
-}
-
-.page-about .about-scroll::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, .18);
-  border-radius: 999px;
-}
-
-.page-about .about-scroll::-webkit-scrollbar-track {
-  background: transparent;
+  color: var(--ink);
 }
 
 /* ================= RIGHT "OBSESSED" MARQUEE ================= */
 .page-about .about-obsessed {
-  margin: 200px 0 6px !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
+  margin: 200px 0 6px;
+  overflow: hidden;
+  white-space: nowrap;
   font-style: oblique;
   font-weight: bold;
 }
 
 .page-about .obsessed-track {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 64px !important;
-  will-change: transform !important;
-  animation: obsessedMarquee 18s linear infinite !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 64px;
+  will-change: transform;
+  animation: obsessedMarquee 18s linear infinite;
 }
 
 .page-about .obsessed-set {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 18px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
 }
 
-.page-about .obsessed-set>span {
-  font-family: "Pix32", monospace !important;
-  font-size: 14px !important;
-  letter-spacing: 0.14em !important;
-  text-transform: lowercase !important;
-  opacity: 0.70 !important;
+.page-about .obsessed-set > span {
+  font-family: "Pix32", monospace;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  opacity: 0.70;
 }
 
-.page-about .obsessed-set>.dot {
-  opacity: 0.35 !important;
-  letter-spacing: 0 !important;
+.page-about .obsessed-set > .dot {
+  opacity: 0.35;
+  letter-spacing: 0;
 }
 
 @keyframes obsessedMarquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* ================= CONTACT FORM (LEFT) ================= */
+
 .page-about .about-contact {
-  margin-top: auto !important;
-  padding-top: 26px !important;
-  max-width: 420px !important;
+  margin-top: auto;
+  padding-top: 26px;
+
+  width: 100%;
+  max-width: 540px;              /* a bit wider + centered in left half */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .page-about .contact-heading {
-  font-family: "Pix32", monospace !important;
-  font-size: 14px !important;
-  letter-spacing: 0.22em !important;
-  text-transform: uppercase !important;
-  margin: 0 0 16px 0 !important;
-  opacity: 0.75 !important;
+  font-family: "Pix32", monospace;
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0 0 16px 0;
+  opacity: 0.75;
 }
 
 .page-about .about-contact input,
 .page-about .about-contact textarea {
-  width: 100% !important;
-  background: transparent !important;
-  border: 1px solid rgba(0, 0, 0, 0.18) !important;
-  padding: 10px 12px !important;
-  margin-bottom: 12px !important;
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 10px 12px;
+  margin-bottom: 12px;
 
-  font-family: "Pix32", monospace !important;
-  font-size: 14px !important;
-  color: var(--ink) !important;
+  font-family: "Pix32", monospace;
+  font-size: 14px;
+  color: var(--ink);
 
-  outline: none !important;
-  box-sizing: border-box !important;
+  outline: none;
+  box-sizing: border-box;
 }
 
 .page-about .about-contact textarea {
-  resize: vertical !important;
+  resize: vertical;
 }
 
 .page-about .about-contact input::placeholder,
 .page-about .about-contact textarea::placeholder {
-  opacity: 0.55 !important;
+  opacity: 0.55;
 }
 
 .page-about .about-contact input:focus,
 .page-about .about-contact textarea:focus {
-  border-color: rgba(0, 0, 0, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .page-about .about-contact button {
-  margin-top: 6px !important;
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
-  color: var(--ink) !important;
+  margin-top: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink);
 
-  font-family: "Pix32", monospace !important;
-  font-size: 14px !important;
-  letter-spacing: 0.18em !important;
-  text-transform: uppercase !important;
+  font-family: "Pix32", monospace;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 
-  cursor: pointer !important;
+  cursor: pointer;
 }
 
 /* screen-reader-only */
 .page-about .sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-/* ================= MOBILE ================= */
+/* ================= MOBILE / TABLET ================= */
 @media (max-width: 980px) {
   .page-about .about-grid {
-    grid-template-columns: 1fr !important;
-    row-gap: 18px !important;
-    padding-left: clamp(18px, 6vw, 40px) !important;
-    padding-right: clamp(18px, 6vw, 40px) !important;
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+
+    width: 100%;
+    margin: 0;
+
+    padding-left: clamp(18px, 6vw, 40px);
+    padding-right: clamp(18px, 6vw, 40px);
+
+    column-gap: 0;
   }
 
   .page-about .about-left {
-    min-height: auto !important;
+    min-height: auto;
+    padding-right: 0;
   }
 
   .page-about .about-right {
-    justify-self: start !important;
+    padding-left: 0;
   }
 
   .page-about .about-scroll {
-    height: auto !important;
-    border-left: none !important;
-    border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
-    padding: 16px 0 0 !important;
-    width: 100% !important;
+    height: auto;
+    max-width: none;
+
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+
+    padding: 16px 0 0;
+    width: 100%;
   }
 
   .page-about .about-contact {
-    margin-top: 26px !important;
+    margin-top: 26px;
+    max-width: 520px;
   }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-
   .page-about .marquee-track,
   .page-about .obsessed-track {
     animation: none !important;
@@ -342,7 +383,7 @@
 }
 
 /* =========================================
-   ABOUT PAGE — DROPDOWN FIX (ACTUALLY STAYS OPEN)
+   ABOUT PAGE — DROPDOWN FIX (STAYS OPEN)
 ========================================= */
 
 /* overlays should never steal hover */
@@ -353,7 +394,7 @@
   pointer-events: none !important;
 }
 
-/* ensure header can overflow for dropdown */
+/* ensure header/nav can overflow for dropdown */
 .page-about .site-header,
 .page-about .nav {
   overflow: visible !important;
@@ -362,10 +403,9 @@
 /* make dropdown reliable */
 .page-about .nav-dropdown {
   position: relative;
-  /* anchor for menu + hover bridge */
 }
 
-/* ✅ invisible hover-bridge so you can move mouse down without it closing */
+/* invisible hover-bridge */
 .page-about .nav-dropdown::after {
   content: "";
   position: absolute;
@@ -373,17 +413,17 @@
   right: -18px;
   top: 100%;
   height: 18px;
-  /* this is the “grace area” */
   background: transparent;
 }
 
-/* keep menu above everything and clickable */
+/* menu above everything and clickable */
 .page-about .dropdown-menu {
   position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  z-index: 9999;
+  top: 100% !important;
+  left: 0 !important;
+  transform: none !important;
 
+  z-index: 9999;
   pointer-events: auto;
 }
 
@@ -394,17 +434,4 @@
   visibility: visible;
   transform: translateY(0);
   pointer-events: auto;
-}
-
-/* ===== ABOUT: dropdown position fix (pins menu right under "work") ===== */
-.page-about .nav-dropdown {
-  position: relative !important;
-}
-
-.page-about .dropdown-menu {
-  top: 100% !important;
-  /* directly under trigger */
-  left: 0 !important;
-  transform: none !important;
-  /* cancels any translateY from styles.css */
 }

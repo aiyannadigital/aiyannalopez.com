@@ -69,7 +69,7 @@ html.is-dark .page-work {
   --finder-shadow: rgba(0, 0, 0, 0.35);
   --finder-shadow-soft: rgba(0, 0, 0, 0.30);
 
-  --star-ink: rgba(255, 255, 255, 0.55);
+  --star-ink: rgba(0, 0, 0, 0.55);
 
   --work-link: rgba(255, 255, 255, 0.90);
 }

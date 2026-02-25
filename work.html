@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>aiyanna's work</title>
 
-
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-16.png">
-  <!-- Global site styles -->
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Work-only styles -->
 
+  <!-- Your global site styles (keep your existing styles.css) -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Finder work page styles -->
   <link rel="stylesheet" href="work.css" />
 
   <!-- Icons -->
@@ -22,16 +22,16 @@
 
 <body class="page-work">
 
-  <!-- Cursor + spotlight -->
+  <!-- Cursor + spotlight (kept) -->
   <div class="cursor">
     <div class="cursor-dot"></div>
   </div>
   <div class="spotlight"></div>
 
-  <!-- Stars -->
+  <!-- Stars (kept) -->
   <canvas id="workSky" aria-hidden="true"></canvas>
 
-  <!-- Header -->
+  <!-- Header (kept) -->
   <header class="site-header">
     <nav class="nav">
       <div class="nav-left">
@@ -49,155 +49,99 @@
       </div>
 
       <div class="nav-right">
-        <a class="icon-link underline" href="https://youtube.com" target="_blank"><i data-lucide="youtube"></i></a>
-        <a class="icon-link underline" href="https://instagram.com" target="_blank"><i data-lucide="instagram"></i></a>
-        <a class="icon-link underline" href="https://substack.com" target="_blank"><i data-lucide="newspaper"></i></a>
-        <a class="icon-link underline" href="https://tumblr.com" target="_blank"><i
-            data-lucide="message-circle"></i></a>
+        <a class="icon-link underline" href="https://youtube.com" target="_blank" rel="noreferrer"><i data-lucide="youtube"></i></a>
+        <a class="icon-link underline" href="https://instagram.com" target="_blank" rel="noreferrer"><i data-lucide="instagram"></i></a>
+        <a class="icon-link underline" href="https://substack.com" target="_blank" rel="noreferrer"><i data-lucide="newspaper"></i></a>
+        <a class="icon-link underline" href="https://tumblr.com" target="_blank" rel="noreferrer"><i data-lucide="message-circle"></i></a>
       </div>
     </nav>
   </header>
 
   <main class="work-wrap">
-    <section class="work-stage" id="workStage">
+    <!-- Finder window -->
+    <section class="finder-shell" aria-label="Work Finder">
+      <div class="finder-window" role="application" aria-label="Finder window">
+        <!-- Toolbar -->
+        <div class="finder-toolbar">
+          <div class="traffic">
+            <button class="tl tl-close" type="button" aria-label="Close window (does nothing)"></button>
+            <button class="tl tl-min" type="button" aria-label="Minimize window (does nothing)"></button>
+            <button class="tl tl-max" type="button" aria-label="Zoom window (does nothing)"></button>
+          </div>
 
-      <!-- OLYMPIA USA -->
-      <button class="work-tile" data-title="Olympia USA" data-meta="E-Commerce Web Design • 2025"
-        data-youtube="hA1Tk3f6CYo" data-img="imgs/1.png"
-        data-desc="Revitalized the digital presence of a long-established luggage brand by leading a complete website redesign and development project aimed at appealing to a younger, style-conscious audience while preserving the brand’s reputation for quality.
+          <div class="finder-title">
+            <span class="finder-title-main">work</span>
+            <span class="finder-title-sub" id="finderBreadcrumb">/ Brand + Commerce</span>
+          </div>
 
-Worked directly with the VP and marketing team to blend modern design trends with proven e-commerce sales strategies, incorporating optimized product categorization, strategic upselling, and a streamlined checkout experience. Introduced a responsive, mobile-first design that improved site speed, usability, and visual impact.
+          <div class="finder-toolbar-right" aria-hidden="true">
+            <!-- <i data-lucide="search"></i> -->
+          </div>
+        </div>
 
-Post-launch, the new website achieved the highest online sales in company history, reinforcing the value of combining data-driven decisions with creative design execution.">
+        <!-- Content -->
+        <div class="finder-content">
+          <!-- Sidebar -->
+          <aside class="finder-sidebar" aria-label="Categories">
+            <div class="sidebar-group">
+              <div class="sidebar-group-label">categories</div>
+              <nav class="sidebar-list" id="categoryList"></nav>
+            </div>
+          </aside>
 
-        <span class="work-info">
-          <span class="work-name">Olympia USA</span>
-          <span class="work-meta">E-Commerce Web Design • 2025</span>
-        </span>
-        <img class="work-img" src="imgs/1.png" alt="Olympia USA preview" />
-      </button>
+          <!-- Main pane -->
+          <section class="finder-main" aria-label="Projects">
+            <div class="finder-main-header">
+              <div class="finder-main-title" id="paneTitle">Brand + Commerce</div>
+              <div class="finder-main-hint">double-click a folder to open</div>
+            </div>
 
-      <!-- elsewhere within -->
-      <button class="work-tile" data-title="Elsehwere, Within." data-meta="Narrative + Graphic Design • 2025"
-        data-youtube=none data-img="imgs/ew.png"
-        data-desc="Elsewhere, Within is an interactive publication that transforms the familiar structure of an activity book into a meditative space for self-reflection. Through a series of prompts, games, and visual exercises, the project invites readers to engage slowly and intentionally with the page—treating each activity not as a task to complete, but as an opportunity to pause, notice, and reconnect with themselves.
-The book reimagines formats like word searches, mazes, fill-in-the-blanks, and poetry exercises as reflective tools, shifting them away from traditional notions of play and productivity. Each section encourages creative participation through writing, drawing, and intuitive decision-making. The result is a tactile, analog experience that emphasizes process over product, embracing imperfection, curiosity, and presence.
-Visually, Elsewhere, Within uses calm, minimal design to hold space for introspection. The addition of subtle color, spacious margins, and gentle typography supports the act of slowing down. Each page is designed to feel open and inviting, allowing readers to bring their own meanings to the work.
-Conceptually, the project explores ideas of inner movement, quiet transformation, and the relationship between structure and openness. It asks: What happens when we treat everyday forms of play as spaces for care and awareness? How might self-reflection feel if it’s approached through softness, experimentation, and creative exploration?
-Elsewhere, Within exists as both an art object and an invitation—a reminder that reflection does not always require answers, and that becoming is a continual, unfolding process.">
+            <div class="folders-grid" id="foldersGrid" role="list"></div>
 
-        <span class="work-info">
-          <span class="work-name">Elsehwere, Within.</span>
-          <span class="work-meta">Narrative + Graphic Design • 2025</span>
-        </span>
-        <img class="work-img" src="imgs/ew.png" alt="Elsewhere, Within." />
-      </button>
-
-      <!-- LOOM -->
-      <button class="work-tile" data-title="LOOM" data-meta="Creative Code • 2023" data-youtube="E_He4EIbW0Q"
-        data-img="imgs/2.png" data-link-1-label="Live Site" data-link-1-url="https://ty-disruption.vercel.app/"
-        data-link-2-label="GitHub" data-link-2-url="https://github.com/aiyannaaaaa/ty_disruption"
-        data-desc="Loom is a platform coded from scratch using HTML, CSS, and JavaScript, created to challenge conventional norms of social media and web design. Inspired by Olia Lialina’s Vernacular Web, Loom disrupts rigid grid layouts and standardized design, embracing disorder to reflect the complexities of human connection.
-
-This project critiques the increasing uniformity of modern web development by blending creative coding frameworks like P5.js and Three.js to introduce fluid, nonlinear interactions. Content spills beyond boundaries, intertwining to create a dynamic and unpredictable user experience.
-
-Loom is both a commentary on the limitations of structured design and an experiment in fostering deeper engagement. By embracing chaos and movement, it reimagines the digital landscape as a space where creativity and connection coexist.">
-
-        <span class="work-info">
-          <span class="work-name">LOOM</span>
-          <span class="work-meta">Creative Code • 2023</span>
-        </span>
-        <img class="work-img" src="imgs/2.png" alt="LOOM preview" />
-      </button>
-
-      <!-- BIRDS ETC -->
-      <button class="work-tile" data-title="Birds Etc." data-meta="Creative Code • 2024" data-youtube="e1svqYoYnA4"
-        data-img="imgs/3.png"
-        data-desc="I was sitting on my front porch one day, watching the birds come and go at my neighbor’s camera bird feeder. As I observed them, I couldn’t help but think about how fascinating it would be to document these birds—not just for the sake of cataloging them, but to explore how we capture and make sense of the natural world around us.
-
-This site is an experiment in documentation—less about final outcomes and more about process, curiosity, and experimentation. It invites users to think about how we record and interact with the environment around us in more fluid and open-ended ways.">
-
-        <span class="work-info">
-          <span class="work-name">Birds Etc.</span>
-          <span class="work-meta">Creative Code • 2024</span>
-        </span>
-        <img class="work-img" src="imgs/3.png" alt="Birds Etc preview" />
-      </button>
-
-      <!-- MATCHAYAN -->
-      <button class="work-tile" data-title="matchayan" data-meta="Creative Code • 2024" data-youtube="sAONflLda_M"
-        data-img="imgs/4.png"
-        data-desc="A personal website that blends creativity and exploration, showcasing my recent favorites and interests. It functions as a playful, evolving space to experiment with ideas, document curiosities, and test new interactions in a low-pressure, exploratory environment.">
-
-        <span class="work-info">
-          <span class="work-name">matchayan</span>
-          <span class="work-meta">Creative Code • 2024</span>
-        </span>
-        <img class="work-img" src="imgs/4.png" alt="matchayan preview" />
-      </button>
-
-      <!-- OUTERRA -->
-      <button class="work-tile" data-title="Outerra" data-meta="Branding + Web Design • 2025" data-youtube="BGGH-K60c0I"
-        data-img="imgs/5.png"
-        data-desc="Partnered with a travel gear startup to create a sleek, futuristic online store that reflected the brand’s emphasis on durability, innovation, and style for the modern traveler.
-
-Directed every stage of the web design process—from wireframing and visual design to development and launch—ensuring a consistent brand narrative throughout the user experience.">
-
-        <span class="work-info">
-          <span class="work-name">Outerra</span>
-          <span class="work-meta">Branding + Web Design • 2025</span>
-        </span>
-        <img class="work-img" src="imgs/5.png" alt="Outerra preview" />
-      </button>
-
-      <!-- MI DULCE PJEL -->
-      <button class="work-tile" data-title="Mi Dulce P’jel" data-meta="E-Commerce Web Design • 2025"
-        data-youtube="JoAPY2k6ju4" data-img="imgs/6.png"
-        data-desc="Reimagined the brand identity and online experience for a boutique skincare business through a complete rebrand and website rebuild. The refreshed visual direction emphasizes clarity, confidence, and care while delivering a smoother, more intuitive shopping experience.">
-
-        <span class="work-info">
-          <span class="work-name">Mi Dulce P’jel</span>
-          <span class="work-meta">E-Commerce Web Design • 2025</span>
-        </span>
-        <img class="work-img" src="imgs/6.png" alt="Mi Dulce P’jel preview" />
-      </button>
-
-      <!-- GRANOS -->
-      <button class="work-tile" data-title="Granos" data-meta="Independent Short Film • 2024" data-youtube="rLWHHfDYhTI"
-        data-img="imgs/8.png"
-        data-desc="When a young perfectionist sets out to build his first-ever sandcastle, he must learn to embrace imperfection and accept the challenges that come with bringing visions to life.
-
-Granos is an intimate reflection on creativity, perfectionism, and the struggle between control and impermanence. The film explores the emotional process of creation, capturing frustration, persistence, and eventual acceptance.">
-
-        <span class="work-info">
-          <span class="work-name">Granos</span>
-          <span class="work-meta">Independent Short Film • 2024</span>
-        </span>
-        <img class="work-img" src="imgs/8.png" alt="Granos preview" />
-      </button>
-
+            <div class="empty-state" id="emptyState" hidden>
+              <!-- <div class="empty-title">nothing here yet</div>
+              <div class="empty-sub">add projects to this category whenever you want.</div> -->
+            </div>
+          </section>
+        </div>
+      </div>
     </section>
   </main>
 
-  <!-- MODAL -->
-  <div class="work-modal" id="workModal" aria-hidden="true">
-    <div class="work-modal-backdrop" data-close></div>
-    <div class="work-modal-card">
-      <button class="work-modal-close underline" data-close>close</button>
-      <div class="work-modal-body">
-        <div class="work-modal-media"></div>
-        <div class="work-modal-text">
-          <h2 id="modalTitle"></h2>
-          <p id="modalMeta"></p>
-          <p id="modalDesc"></p>
-          <div class="work-modal-links"></div>
+  <!-- Project modal -->
+  <div class="ios-modal" id="projectModal" aria-hidden="true">
+    <div class="ios-modal-backdrop" data-close></div>
+
+    <div class="ios-modal-card" role="dialog" aria-modal="true" aria-label="Project details">
+      <div class="ios-modal-topbar">
+        <div class="traffic">
+          <button class="tl tl-close" type="button" data-close aria-label="Close"></button>
+          <button class="tl tl-min" type="button" aria-label="Minimize (visual only)" disabled></button>
+          <button class="tl tl-max" type="button" aria-label="Zoom (visual only)" disabled></button>
+        </div>
+
+        <div class="ios-modal-title">
+          <span id="modalTitle">Project</span>
+          <span id="modalMeta" class="ios-modal-meta">Meta</span>
+        </div>
+
+        <button class="ios-x underline" type="button" data-close aria-label="Close">close</button>
+      </div>
+
+      <div class="ios-modal-body">
+        <div class="ios-media" id="modalMedia"></div>
+
+        <div class="ios-text">
+          <p id="modalDesc" class="ios-desc"></p>
+          <div class="ios-links" id="modalLinks"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Your scripts -->
   <script src="work.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>

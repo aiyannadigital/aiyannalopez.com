@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Icons
   if (window.lucide) lucide.createIcons();
 
-  /* ================= CURSOR + SPOTLIGHT ================= */
+  /* ================= CURSOR + SPOTLIGHT (kept) ================= */
   const cursor = document.querySelector(".cursor");
   const cursorDot = document.querySelector(".cursor-dot");
   const spotlight = document.querySelector(".spotlight");
@@ -26,24 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cursor) {
       cursor.style.left = `${cx}px`;
       cursor.style.top = `${cy}px`;
-      cursor.style.pointerEvents = "none";
     }
-    if (cursorDot) cursorDot.style.pointerEvents = "none";
-    if (spotlight) spotlight.style.pointerEvents = "none";
-
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
 
-  /* ================= TWINKLING STITCH SPARKLES (INDEX STYLE) ================= */
+  /* ================= STITCH SPARKLE STARS (kept) ================= */
   const canvas = document.getElementById("workSky");
   const ctx = canvas?.getContext("2d");
   if (!canvas || !ctx) return;
 
-  let w = 0,
-    h = 0,
-    dpr = 1;
-
+  let w = 0, h = 0, dpr = 1;
   const rand = (a, b) => Math.random() * (b - a) + a;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -57,11 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function drawStitchStar(x, y, size) {
-    // layered stitched sparkle (same logic as index)
     drawStitchX(x, y, size);
     drawStitchX(x + size * 0.15, y - size * 0.1, size * 0.85);
 
-    // tiny plus = “glisten”
     ctx.beginPath();
     ctx.moveTo(x - size * 0.95, y);
     ctx.lineTo(x + size * 0.95, y);
@@ -74,17 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function makeStars() {
     stars = [];
 
-    // ✅ MORE STARS (density increased)
     const topCount = Math.floor((window.innerWidth / 70) * 10);
     const midCount = Math.floor((window.innerWidth / 95) * 9);
     const lowCount = Math.floor((window.innerWidth / 140) * 7);
 
-    // Top band
     for (let i = 0; i < topCount; i++) {
       stars.push({
         x: rand(18, w - 18),
         y: rand(18, h * 0.34),
-        s: rand(0.55, 1.35) * dpr, // ✅ base size (edit smaller here)
+        s: rand(0.55, 1.35) * dpr,
         tw: rand(0.9, 1.9),
         ph: rand(0, Math.PI * 2),
         baseA: rand(0.35, 0.8),
@@ -93,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Upper-mid filler
     for (let i = 0; i < midCount; i++) {
       stars.push({
         x: rand(18, w - 18),
@@ -107,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Lower subtle filler (keeps whole page alive)
     for (let i = 0; i < lowCount; i++) {
       stars.push({
         x: rand(18, w - 18),
@@ -135,14 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lastStarT = performance.now();
   function drawStars(now) {
-    const dt = (now - lastStarT) / 1000;
     lastStarT = now;
 
     ctx.clearRect(0, 0, w, h);
-
-    // ✅ THIN like your index
-    ctx.strokeStyle = "rgba(0,0,0,0.55)";
-    ctx.lineWidth = 0.35 * dpr; // thinner
+    ctx.strokeStyle = getComputedStyle(document.querySelector(".page-work"))
+  .getPropertyValue("--star-ink")
+  .trim() || "rgba(0,0,0,0.55)";
+    ctx.lineWidth = 0.35 * dpr;
     ctx.lineCap = "round";
 
     for (const st of stars) {
@@ -162,166 +148,257 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   requestAnimationFrame(drawStars);
 
-  /* ================= TILE LAYOUT (RANDOM ONCE, SMOOTH) ================= */
-  const stage = document.getElementById("workStage");
-  const tiles = Array.from(document.querySelectorAll(".work-tile"));
-  if (!stage || !tiles.length) return;
-
-  // Hide tiles until placed (prevents visible jumping)
-  tiles.forEach((t) => {
-    t.style.opacity = "0";
-    t.style.willChange = "transform";
-  });
-
-  function overlaps(a, b, pad = 18) {
-    return !(
-      a.x + a.w + pad < b.x ||
-      a.x > b.x + b.w + pad ||
-      a.y + a.h + pad < b.y ||
-      a.y > b.y + b.h + pad
-    );
-  }
-
-  function layoutTilesOnce() {
-    const rect = stage.getBoundingClientRect();
-    const placed = [];
-    const innerPad = 12;
-
-    tiles.forEach((tile, idx) => {
-      const box = tile.getBoundingClientRect();
-      const tw = box.width;
-      const th = box.height;
-
-      const xMax = Math.max(innerPad, rect.width - tw - innerPad);
-      const yMax = Math.max(innerPad, rect.height - th - innerPad);
-
-      let found = false;
-
-      for (let i = 0; i < 700; i++) {
-        const x = rand(innerPad, xMax);
-        const y = rand(innerPad, yMax);
-        const cand = { x, y, w: tw, h: th };
-
-        if (!placed.some((p) => overlaps(cand, p, 22))) {
-          placed.push(cand);
-          tile.style.left = `${x}px`;
-          tile.style.top = `${y}px`;
-          found = true;
-          break;
-        }
-      }
-
-      if (!found) {
-        const cols = 2;
-        const gx = idx % cols;
-        const gy = Math.floor(idx / cols);
-        const x = innerPad + gx * (rect.width / cols);
-        const y = innerPad + gy * (rect.height / 4);
-        tile.style.left = `${Math.min(x, xMax)}px`;
-        tile.style.top = `${Math.min(y, yMax)}px`;
-      }
-    });
-
-    tiles.forEach((t) => (t.style.opacity = "1"));
-  }
-
-  function waitForImagesOrTimeout() {
-    const imgs = tiles.map((t) => t.querySelector("img")).filter(Boolean);
-    if (!imgs.length) return Promise.resolve();
-
-    return Promise.race([
-      Promise.all(
-        imgs.map((img) => {
-          if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-          if (img.decode) return img.decode().catch(() => {});
-          return new Promise((res) => {
-            img.addEventListener("load", res, { once: true });
-            img.addEventListener("error", res, { once: true });
-          });
-        })
-      ),
-      new Promise((res) => setTimeout(res, 600)),
-    ]);
-  }
-
-  let laidOut = false;
-  async function initLayout() {
-    if (laidOut) return;
-    laidOut = true;
-
-    // wait for fonts too (prevents width change after paint)
-    try {
-      if (document.fonts && document.fonts.ready) {
-        await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 500))]);
-      }
-    } catch (_) {}
-
-    await waitForImagesOrTimeout();
-    requestAnimationFrame(() => layoutTilesOnce());
-  }
-
-  initLayout();
-
-  // Optional: re-layout + stars on resize (debounced)
   let resizeTimer = null;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      resizeCanvas();
-      tiles.forEach((t) => (t.style.opacity = "0"));
-      requestAnimationFrame(() => layoutTilesOnce());
-    }, 220);
+    resizeTimer = setTimeout(() => resizeCanvas(), 200);
   });
 
-  /* ================= MODAL (VIDEO FIRST: YOUTUBE URL OR ID) ================= */
-  const modal = document.getElementById("workModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalMeta = document.getElementById("modalMeta");
-  const modalDesc = document.getElementById("modalDesc");
+  /* ===============================
+     FINDER DATA (your projects)
+     - categories: Brand + Commerce, Film, Creative Code, Narrative, Misc
+  =============================== */
 
-  // Ensure media host exists
-  let mediaHost = document.querySelector(".work-modal-media");
-  const modalBody = document.querySelector(".work-modal-body");
-  if (!mediaHost && modalBody) {
-    mediaHost = document.createElement("div");
-    mediaHost.className = "work-modal-media";
-    const text = modalBody.querySelector(".work-modal-text");
-    if (text) modalBody.insertBefore(mediaHost, text);
-    else modalBody.appendChild(mediaHost);
+  const projects = [
+    {
+      id: "olympia",
+      title: "Olympia USA",
+      meta: "E-Commerce Web Design • 2025",
+      category: "Brand + Commerce",
+      youtube: "hA1Tk3f6CYo",
+      images: ["imgs/1.png"],
+      links: [],
+      desc:
+        "Revitalized the digital presence of a long-established luggage brand by leading a complete website redesign and development project aimed at appealing to a younger, style-conscious audience while preserving the brand’s reputation for quality.\n\nWorked directly with the VP and marketing team to blend modern design trends with proven e-commerce sales strategies, incorporating optimized product categorization, strategic upselling, and a streamlined checkout experience. Introduced a responsive, mobile-first design that improved site speed, usability, and visual impact.\n\nPost-launch, the new website achieved the highest online sales in company history, reinforcing the value of combining data-driven decisions with creative design execution."
+    },
+    {
+      id: "elsewhere",
+      title: "Elsewhere, Within.",
+      meta: "Narrative + Graphic Design • 2025",
+      category: "Narrative",
+      youtube: "",
+      images: ["imgs/ew.png"],
+      links: [],
+      desc:
+        "Elsewhere, Within is an interactive publication that transforms the familiar structure of an activity book into a meditative space for self-reflection. Through a series of prompts, games, and visual exercises, the project invites readers to engage slowly and intentionally with the page—treating each activity not as a task to complete, but as an opportunity to pause, notice, and reconnect with themselves.\n\nThe book reimagines formats like word searches, mazes, fill-in-the-blanks, and poetry exercises as reflective tools, shifting them away from traditional notions of play and productivity. Each section encourages creative participation through writing, drawing, and intuitive decision-making. The result is a tactile, analog experience that emphasizes process over product, embracing imperfection, curiosity, and presence.\n\nVisually, Elsewhere, Within uses calm, minimal design to hold space for introspection. The addition of subtle color, spacious margins, and gentle typography supports the act of slowing down. Each page is designed to feel open and inviting, allowing readers to bring their own meanings to the work.\n\nConceptually, the project explores ideas of inner movement, quiet transformation, and the relationship between structure and openness."
+    },
+    {
+      id: "loom",
+      title: "LOOM",
+      meta: "Creative Code • 2023",
+      category: "Creative Code",
+      youtube: "E_He4EIbW0Q",
+      images: ["imgs/2.png"],
+      links: [
+        { label: "Live Site", url: "https://ty-disruption.vercel.app/" },
+        { label: "GitHub", url: "https://github.com/aiyannaaaaa/ty_disruption" },
+      ],
+      desc:
+        "Loom is a platform coded from scratch using HTML, CSS, and JavaScript, created to challenge conventional norms of social media and web design. Inspired by Olia Lialina’s Vernacular Web, Loom disrupts rigid grid layouts and standardized design, embracing disorder to reflect the complexities of human connection.\n\nThis project critiques the increasing uniformity of modern web development by blending creative coding frameworks like P5.js and Three.js to introduce fluid, nonlinear interactions. Content spills beyond boundaries, intertwining to create a dynamic and unpredictable user experience.\n\nLoom is both a commentary on the limitations of structured design and an experiment in fostering deeper engagement."
+    },
+    {
+      id: "birds",
+      title: "Birds Etc.",
+      meta: "Creative Code • 2024",
+      category: "Creative Code",
+      youtube: "e1svqYoYnA4",
+      images: ["imgs/3.png"],
+      links: [],
+      desc:
+        "I was sitting on my front porch one day, watching the birds come and go at my neighbor’s camera bird feeder. As I observed them, I couldn’t help but think about how fascinating it would be to document these birds—not just for the sake of cataloging them, but to explore how we capture and make sense of the natural world around us.\n\nThis site is an experiment in documentation—less about final outcomes and more about process, curiosity, and experimentation. It invites users to think about how we record and interact with the environment around us in more fluid and open-ended ways."
+    },
+    {
+      id: "matchayan",
+      title: "matchayan",
+      meta: "Creative Code • 2024",
+      category: "Creative Code",
+      youtube: "sAONflLda_M",
+      images: ["imgs/4.png"],
+      links: [],
+      desc:
+        "A personal website that blends creativity and exploration, showcasing my recent favorites and interests. It functions as a playful, evolving space to experiment with ideas, document curiosities, and test new interactions in a low-pressure, exploratory environment."
+    },
+    {
+      id: "outerra",
+      title: "Outerra",
+      meta: "Branding + Web Design • 2025",
+      category: "Brand + Commerce",
+      youtube: "BGGH-K60c0I",
+      images: ["imgs/5.png"],
+      links: [],
+      desc:
+        "Partnered with a travel gear startup to create a sleek, futuristic online store that reflected the brand’s emphasis on durability, innovation, and style for the modern traveler.\n\nDirected every stage of the web design process—from wireframing and visual design to development and launch—ensuring a consistent brand narrative throughout the user experience."
+    },
+    {
+      id: "midulce",
+      title: "Mi Dulce P’jel",
+      meta: "E-Commerce Web Design • 2025",
+      category: "Brand + Commerce",
+      youtube: "JoAPY2k6ju4",
+      images: ["imgs/6.png"],
+      links: [],
+      desc:
+        "Reimagined the brand identity and online experience for a boutique skincare business through a complete rebrand and website rebuild. The refreshed visual direction emphasizes clarity, confidence, and care while delivering a smoother, more intuitive shopping experience."
+    },
+    {
+      id: "granos",
+      title: "Granos",
+      meta: "Independent Short Film • 2024",
+      category: "Film",
+      youtube: "rLWHHfDYhTI",
+      images: ["imgs/8.png"],
+      links: [],
+      desc:
+        "When a young perfectionist sets out to build his first-ever sandcastle, he must learn to embrace imperfection and accept the challenges that come with bringing visions to life.\n\nGranos is an intimate reflection on creativity, perfectionism, and the struggle between control and impermanence. The film explores the emotional process of creation, capturing frustration, persistence, and eventual acceptance."
+    },
+  ];
+
+  const categories = [
+    { key: "Brand + Commerce", icon: "shopping-bag" },
+    { key: "Film", icon: "clapperboard" },
+    { key: "Creative Code", icon: "code" },
+    { key: "Narrative", icon: "book-open" },
+    { key: "Misc", icon: "sparkles" },
+  ];
+
+  const byCategory = (cat) => projects.filter(p => p.category === cat);
+
+  /* ===============================
+     FINDER UI
+  =============================== */
+
+  const categoryList = document.getElementById("categoryList");
+  const foldersGrid = document.getElementById("foldersGrid");
+  const paneTitle = document.getElementById("paneTitle");
+  const breadcrumb = document.getElementById("finderBreadcrumb");
+  const emptyState = document.getElementById("emptyState");
+
+  let activeCategory = categories[0].key;
+  let selectedProjectId = null;
+
+  function makeSidebar() {
+    categoryList.innerHTML = "";
+
+    categories.forEach((c) => {
+      const btn = document.createElement("button");
+      btn.className = "sidebar-item";
+      btn.type = "button";
+      btn.dataset.cat = c.key;
+
+      btn.innerHTML = `
+        <i data-lucide="${c.icon}"></i>
+        <span>${c.key}</span>
+      `;
+
+      btn.addEventListener("click", () => {
+        activeCategory = c.key;
+        selectedProjectId = null;
+        render();
+      });
+
+      categoryList.appendChild(btn);
+    });
+
+    if (window.lucide) lucide.createIcons();
   }
 
-  // Ensure links host exists
-  const modalText = document.querySelector(".work-modal-text");
-  let linksHost = document.querySelector(".work-modal-links");
-  if (modalText && !linksHost) {
-    linksHost = document.createElement("div");
-    linksHost.className = "work-modal-links";
-    modalText.appendChild(linksHost);
+  function renderFolders() {
+    const items = byCategory(activeCategory);
+    foldersGrid.innerHTML = "";
+
+    if (!items.length) {
+      emptyState.hidden = false;
+      foldersGrid.style.display = "none";
+      return;
+    }
+
+    emptyState.hidden = true;
+    foldersGrid.style.display = "grid";
+
+    items.forEach((p) => {
+      const el = document.createElement("button");
+      el.type = "button";
+      el.className = "folder";
+      el.dataset.id = p.id;
+      el.setAttribute("role", "listitem");
+      el.setAttribute("aria-label", `${p.title} folder`);
+
+      el.innerHTML = `
+        <div class="folder-icon">
+          <i data-lucide="folder"></i>
+        </div>
+        <div>
+          <div class="folder-title">${p.title}</div>
+          <div class="folder-meta">${p.meta}</div>
+        </div>
+      `;
+
+      el.addEventListener("click", () => {
+        selectedProjectId = p.id;
+        updateSelection();
+      });
+
+      el.addEventListener("dblclick", () => openProject(p));
+
+      foldersGrid.appendChild(el);
+    });
+
+    if (window.lucide) lucide.createIcons();
+    updateSelection();
   }
 
-  // ✅ Force pixel font on modal text (so it never “goes away”)
-  function enforceModalPixelFont() {
-    if (!modal) return;
-    const px = '"Pix32", monospace';
-    const targets = modal.querySelectorAll(
-      ".work-modal-card, .work-modal-text, .work-modal-title, .work-modal-meta, .work-modal-desc, .work-modal-links, .work-modal-link, .work-modal-close"
-    );
-    targets.forEach((el) => {
-      el.style.fontFamily = px;
+  function updateSelection() {
+    const nodes = Array.from(foldersGrid.querySelectorAll(".folder"));
+    nodes.forEach(n => {
+      const isSel = n.dataset.id === selectedProjectId;
+      n.classList.toggle("is-selected", isSel);
     });
   }
 
-  function clearMedia() {
-    if (!mediaHost) return;
-    mediaHost.innerHTML = "";
+  function render() {
+    // sidebar active
+    const sidebarItems = Array.from(categoryList.querySelectorAll(".sidebar-item"));
+    sidebarItems.forEach((b) => b.classList.toggle("is-active", b.dataset.cat === activeCategory));
+
+    // titles
+    paneTitle.textContent = activeCategory;
+    breadcrumb.textContent = `/ ${activeCategory}`;
+
+    renderFolders();
+  }
+
+  makeSidebar();
+  render();
+
+  // Keyboard: Enter to open selected folder
+  window.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    const modalOpen = document.getElementById("projectModal")?.classList.contains("is-open");
+    if (modalOpen) return;
+
+    if (!selectedProjectId) return;
+    const p = projects.find(x => x.id === selectedProjectId);
+    if (p) openProject(p);
+  });
+
+  /* ===============================
+     MODAL (project details)
+  =============================== */
+  const modal = document.getElementById("projectModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalMeta = document.getElementById("modalMeta");
+  const modalDesc = document.getElementById("modalDesc");
+  const modalMedia = document.getElementById("modalMedia");
+  const modalLinks = document.getElementById("modalLinks");
+
+  function clearModal() {
+    modalMedia.innerHTML = "";
+    modalLinks.innerHTML = "";
   }
 
   function youtubeIdFromAnything(input) {
     if (!input) return "";
-    // already an ID
-    if (!input.includes("http") && !input.includes("/") && input.length >= 8) {
-      return input.trim();
-    }
+    if (!input.includes("http") && !input.includes("/") && input.length >= 8) return input.trim();
     try {
       const u = new URL(input);
       if (u.hostname.includes("youtu.be")) return u.pathname.replace("/", "");
@@ -333,107 +410,57 @@ document.addEventListener("DOMContentLoaded", () => {
     return "";
   }
 
-  function setMediaFromTile(tile) {
-    if (!mediaHost) return;
-    clearMedia();
-
-    const title = tile.dataset.title || "Project";
-    const youtubeRaw = tile.dataset.youtube || "";
-    const videoId = youtubeIdFromAnything(youtubeRaw);
-    const imgSrc = tile.dataset.img || "";
-
-    // ✅ VIDEO FIRST
-    if (videoId) {
-      const iframe = document.createElement("iframe");
-      iframe.className = "work-modal-yt";
-      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1`;
-      iframe.title = title;
-      iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute(
-        "allow",
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      );
-      iframe.allowFullscreen = true;
-
-      // ✅ Make video BIG
-      iframe.style.width = "100%";
-      iframe.style.aspectRatio = "16 / 9";
-      iframe.style.height = "auto";
-      iframe.style.border = "0";
-      iframe.style.display = "block";
-
-      mediaHost.appendChild(iframe);
-      return;
-    }
-
-    // fallback image (only if no video)
-    if (imgSrc) {
-      const img = document.createElement("img");
-      img.className = "work-modal-img";
-      img.src = imgSrc;
-      img.alt = title;
-      img.style.width = "100%";
-      img.style.height = "auto";
-      img.style.display = "block";
-      mediaHost.appendChild(img);
-    }
+  function addYouTube(videoId, title) {
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1`;
+    iframe.title = title || "YouTube video";
+    iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+    iframe.allowFullscreen = true;
+    modalMedia.appendChild(iframe);
   }
 
-  function setLinksFromTile(tile) {
-    if (!linksHost) return;
-    linksHost.innerHTML = "";
-
-    const l1Label = tile.dataset.link1Label;
-    const l1Url = tile.dataset.link1Url;
-    const l2Label = tile.dataset.link2Label;
-    const l2Url = tile.dataset.link2Url;
-
-    function addLink(label, url) {
-      if (!label || !url) return;
-      const a = document.createElement("a");
-      a.href = url;
-      a.target = "_blank";
-      a.rel = "noreferrer";
-      a.className = "work-modal-link underline";
-      a.textContent = label;
-      linksHost.appendChild(a);
-    }
-
-    addLink(l1Label, l1Url);
-    addLink(l2Label, l2Url);
-
-    linksHost.style.display = linksHost.children.length ? "flex" : "none";
-    linksHost.style.gap = "14px";
-    linksHost.style.marginTop = "14px";
-    linksHost.style.flexWrap = "wrap";
+  function addImage(src, alt) {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = alt || "";
+    modalMedia.appendChild(img);
   }
 
-  function openModal(tile) {
-    if (!modal) return;
+  function addLink(label, url) {
+    if (!label || !url) return;
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noreferrer";
+    a.className = "ios-link underline";
+    a.textContent = label;
+    modalLinks.appendChild(a);
+  }
 
-    enforceModalPixelFont();
+  function openProject(p) {
+    clearModal();
 
-    if (modalTitle) modalTitle.textContent = tile.dataset.title || "";
-    if (modalMeta) modalMeta.textContent = tile.dataset.meta || "";
-    if (modalDesc) modalDesc.textContent = tile.dataset.desc || "";
+    modalTitle.textContent = p.title || "Project";
+    modalMeta.textContent = p.meta || "";
+    modalDesc.textContent = p.desc || "";
 
-    setMediaFromTile(tile);
-    setLinksFromTile(tile);
+    const yid = youtubeIdFromAnything(p.youtube || "");
+    if (yid) addYouTube(yid, p.title);
+
+    (p.images || []).forEach((src) => addImage(src, p.title));
+
+    (p.links || []).forEach((l) => addLink(l.label, l.url));
+    modalLinks.style.display = modalLinks.children.length ? "flex" : "none";
 
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
   }
 
   function closeModal() {
-    if (!modal) return;
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
-    clearMedia();
+    clearModal();
   }
-
-  tiles.forEach((tile) => {
-    tile.addEventListener("click", () => openModal(tile));
-  });
 
   modal?.addEventListener("click", (e) => {
     const t = e.target;

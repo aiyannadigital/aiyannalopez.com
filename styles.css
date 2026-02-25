@@ -1,19 +1,19 @@
 /* Dark mode via full inversion */
-html.is-dark{
+html.is-dark {
   filter: invert(1) hue-rotate(180deg);
 }
 
 /* Re-invert ONLY media (so photos/videos look normal) */
 html.is-dark img,
 html.is-dark video,
-html.is-dark iframe{
+html.is-dark iframe {
   filter: invert(1) hue-rotate(180deg);
 }
 
 /* IMPORTANT: do NOT re-invert canvas, so your JS animations invert too */
 
-.theme-toggle{
-  font-size: 14px;          /* matches your pixel scale */
+.theme-toggle {
+  font-size: 14px;
   line-height: 1;
   background: none;
   border: none;
@@ -22,10 +22,9 @@ html.is-dark iframe{
   color: var(--ink);
 }
 
-.theme-toggle:hover{
+.theme-toggle:hover {
   opacity: 0.7;
 }
-
 
 @font-face {
   font-family: "Aston Script";
@@ -62,7 +61,6 @@ body {
   background: var(--bg);
   color: var(--ink);
   cursor: none;
-  /* custom cursor */
 }
 
 /* ---------------- Background Canvas ---------------- */
@@ -167,9 +165,11 @@ body {
   max-width: var(--max);
   margin: 0 auto;
   padding: 14px 18px;
+
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
+  gap: 12px;
 }
 
 .nav-left,
@@ -177,6 +177,7 @@ body {
   display: flex;
   gap: 18px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .nav-right {
@@ -192,92 +193,12 @@ body {
   letter-spacing: .06em;
 }
 
-
-/* ---- Work dropdown ---- */
-.nav-dropdown {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.dropdown-trigger {
-  background: transparent;
-  border: 0;
-  padding: 4px 0;
-  /* match underline spacing */
-  font: inherit;
-  /* keep Pix32 style */
-  color: inherit;
-  cursor: none;
-  /* keep your custom cursor */
-}
-
-/* Menu panel */
-.dropdown-menu {
-  pointer-events: auto;
-
-  position: absolute;
-  top: calc(100% + 10px);
-  left: -8px;
-
-  min-width: 160px;
-  padding: 10px 10px;
-
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
-
-  opacity: 0;
-  transform: translateY(6px);
-  pointer-events: none;
-
-  transition: opacity 160ms ease, transform 160ms ease;
-  z-index: 50;
-}
-
-.dropdown-item {
-  display: block;
-  padding: 8px 10px;
-  border-radius: 10px;
-
-  text-decoration: none;
-  color: var(--ink);
-  font-family: "Pix32", monospace;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-}
-
-.dropdown-item:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-/* Show on hover OR focus-within (keyboard friendly) */
-.nav-dropdown:hover .dropdown-menu,
-.nav-dropdown:focus-within .dropdown-menu {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* Invisible hover bridge so you can move into the menu */
-.nav-dropdown::after {
-  content: "";
-  position: absolute;
-  left: -12px;
-  right: -12px;
-  top: 100%;
-  height: 18px;
-  /* increase if needed */
-}
-
-/* Brand (no underline animation) */
+/* Brand */
 .brand {
   font-family: "Aston Script", serif;
   letter-spacing: .06em;
   font-size: 18px;
+  white-space: nowrap;
 }
 
 /* Underline hover animation */
@@ -331,36 +252,70 @@ body {
   place-items: center;
 }
 
-.hero-text {
+/* ✅ This is the “anchor” group */
+.hero-lockup {
+  position: relative;
+  display: inline-block;   /* shrink-wrap to headline width */
   text-align: center;
+  padding: clamp(8px, 2vw, 18px) 0; /* breathing room for the floating labels */
 }
 
+/* Main script headline */
 .headline {
   font-family: "Aston Script", serif;
   margin: 0;
   font-size: clamp(64px, 9vw, 120px);
-  line-height: 1.6;
+  line-height: 1.05;
+  white-space: nowrap;
 }
 
-.subhead {
-  font-family: "Pix32", monospace;
-  margin: 35px;
-  margin-right: 950px;
-  font-size: 15px;
-  letter-spacing: .08em;
-  color: var(--muted);
-}
-
+/* Pixel labels that hug the headline */
+.subhead,
 .subhead2 {
+  position: absolute;
   font-family: "Pix32", monospace;
-  margin: 30px;
-  margin-left: 620px;
   font-size: 15px;
   letter-spacing: .08em;
   color: var(--muted);
+  margin: 0;
+  white-space: nowrap;
 }
 
-/* Mobile */
+/* “aiyanna’s” — more distance above */
+.subhead {
+  left: clamp(-22px, -2.5vw, -10px);
+  top: clamp(-64px, -6vw, -38px);  /* increased vertical spacing */
+}
+
+/* tagline — more distance below */
+.subhead2 {
+  right: clamp(-10px, -1.5vw, 12px);
+  bottom: clamp(-60px, -5.5vw, -34px); /* increased vertical spacing */
+  max-width: min(62ch, 78vw);
+  white-space: normal;
+  text-align: right;
+  line-height: 1.35;
+}
+
+/* ---------------- Responsive Header ---------------- */
+@media (max-width: 820px) {
+  .nav {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .nav-left,
+  .nav-right {
+    justify-content: center;
+  }
+
+  .nav-center {
+    order: -1;
+  }
+}
+
+/* ✅ Small screens: keep the “hug” but avoid collisions */
 @media (max-width: 520px) {
   .nav {
     padding: 12px 14px;
@@ -369,6 +324,22 @@ body {
   .nav-left,
   .nav-right {
     gap: 14px;
+  }
+
+  .headline {
+    white-space: normal; /* allow headline to wrap if super narrow */
+    text-wrap: balance;
+  }
+
+  .subhead {
+    left: 0;
+    top: -18px;
+  }
+
+  .subhead2 {
+    right: 0;
+    bottom: -22px;
+    max-width: 86vw;
   }
 }
 

@@ -1,17 +1,82 @@
 /* ===============================
-   WORK PAGE ONLY
-   - no page scroll
-   - text LEFT of image
-   - modal ABOVE cursor
-   - modal supports VIDEO + 2 LINKS
+   WORK PAGE (Finder layout)
+   - stitched stars canvas behind everything
+   - Finder window centered
+   - dark mode compatible (matches common site toggles)
 ================================ */
 
+/* ===============================
+   THEME TOKENS (LIGHT by default)
+   NOTE: Dark mode overrides are below.
+================================ */
 .page-work {
-  height: 200vh;
-  overflow: visible;
+  min-height: 100vh;
+  overflow: hidden;
+
+  /* Finder surfaces */
+  --finder-bg: rgba(255, 255, 255, 0.86);
+  --finder-toolbar: rgba(255, 255, 255, 0.70);
+  --finder-sidebar: rgba(255, 255, 255, 0.60);
+  --finder-card: rgba(255, 255, 255, 0.72);
+  --finder-card-hover: rgba(255, 255, 255, 0.88);
+
+  /* Borders/text */
+  --finder-border: rgba(0, 0, 0, 0.10);
+  --finder-border-soft: rgba(0, 0, 0, 0.08);
+
+  --finder-text: rgba(0, 0, 0, 0.85);
+  --finder-subtext: rgba(0, 0, 0, 0.55);
+  --finder-muted: rgba(0, 0, 0, 0.45);
+
+  /* Shadows */
+  --finder-shadow: rgba(0, 0, 0, 0.10);
+  --finder-shadow-soft: rgba(0, 0, 0, 0.08);
+
+  /* Stars stroke color (work.js can read this) */
+  --star-ink: rgba(0, 0, 0, 0.55);
+
+  /* Links */
+  --work-link: var(--ink, #111);
 }
 
-/* stars canvas behind everything */
+/* ===============================
+   DARK MODE OVERRIDES
+   Supports multiple possible toggles:
+   - html[data-theme="dark"]
+   - body[data-theme="dark"]
+   - body.dark / html.dark
+   - body.is-dark / html.is-dark
+================================ */
+html[data-theme="dark"] .page-work,
+body[data-theme="dark"] .page-work,
+body.dark .page-work,
+html.dark .page-work,
+body.is-dark .page-work,
+html.is-dark .page-work {
+  --finder-bg: rgba(18, 18, 18, 0.72);
+  --finder-toolbar: rgba(18, 18, 18, 0.62);
+  --finder-sidebar: rgba(18, 18, 18, 0.55);
+  --finder-card: rgba(28, 28, 28, 0.72);
+  --finder-card-hover: rgba(36, 36, 36, 0.80);
+
+  --finder-border: rgba(255, 255, 255, 0.14);
+  --finder-border-soft: rgba(255, 255, 255, 0.10);
+
+  --finder-text: rgba(255, 255, 255, 0.88);
+  --finder-subtext: rgba(255, 255, 255, 0.62);
+  --finder-muted: rgba(255, 255, 255, 0.45);
+
+  --finder-shadow: rgba(0, 0, 0, 0.35);
+  --finder-shadow-soft: rgba(0, 0, 0, 0.30);
+
+  --star-ink: rgba(255, 255, 255, 0.55);
+
+  --work-link: rgba(255, 255, 255, 0.90);
+}
+
+/* ===============================
+   STARS CANVAS BEHIND EVERYTHING
+================================ */
 .page-work #workSky {
   position: fixed;
   inset: 0;
@@ -19,272 +84,38 @@
   pointer-events: none;
 }
 
-/* content above canvas */
+/* Content above canvas */
 .page-work .site-header,
 .page-work .work-wrap {
   position: relative;
   z-index: 2;
 }
 
-/* stage takes remaining viewport under header */
-.page-work .work-wrap {
-  height: calc(200vh - 56px);
-}
-
-.page-work .work-stage {
-  position: relative;
-  width: 100%;
-  height: calc(200vh - 56px);
-  padding: clamp(18px, 3vw, 44px);
-  overflow: hidden;
+.page-work .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 }
 
 /* ===============================
-   TILE (text LEFT, image RIGHT)
+   CURSOR SAFETY (your original intent)
 ================================ */
-
-.page-work .work-tile {
-  position: absolute;
-  display: grid;
-  grid-template-columns: 220px .5fr;
-  /* text | image */
-  column-gap: 16px;
-  align-items: start;
-
-  border: none;
-  padding: 0;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-
-  width: clamp(420px, 44vw, 560px);
-}
-
-.page-work .work-info {
-  display: grid;
-  gap: 10px;
-  padding-top: 6px;
-}
-
-.page-work .work-name {
-  font-family: "Pix32", monospace;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  opacity: 0.9;
-}
-
-.page-work .work-meta {
-  font-family: "Pix32", monospace;
-  font-size: 11px;
-  letter-spacing: 0.10em;
-  opacity: 0.55;
-}
-
-.page-work .work-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 5px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-}
-
-/* gentle hover */
-/* .page-work .work-tile:hover {
-  transform: translateY(-3px);
-  transition: transform 140ms ease;
-} */
-
-/* ===============================
-   MODAL (above cursor)
-================================ */
-
-.page-work .work-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 20000;
-  /* ✅ above cursor */
-  display: none;
-}
-
-.page-work .work-modal.is-open {
-  display: block;
-}
-
-.page-work .work-modal,
-.page-work .work-modal * {
-  pointer-events: auto;
-}
-
-.page-work .work-modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(6px);
-}
-
-/* modal card */
-.page-work .work-modal-card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
-  width: min(980px, calc(100vw - 40px));
-  max-height: min(82vh, 820px);
-  overflow: auto;
-
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  border-radius: 16px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
-  padding: 18px 18px 24px;
-}
-
-.page-work .work-modal-close {
-  font-family: "Pix32", monospace;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  margin-left: auto;
-  display: block;
-  opacity: 0.7;
-}
-
-.page-work .work-modal-close:hover {
-  opacity: 1;
-}
-
-/* body layout */
-.page-work .work-modal-body {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 18px;
-  align-items: start;
-  margin-top: 12px;
-}
-
-/* media container holds img OR video */
-.page-work .work-modal-media {
-  width: 100%;
-}
-
-.page-work .work-modal-img,
-.page-work .work-modal-video {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-}
-
-/* video polish */
-.page-work .work-modal-video {
-  background: rgba(0, 0, 0, 0.06);
-  outline: none;
-}
-
-/* text */
-.page-work .work-modal-title {
-  margin: 0 0 10px 0;
-  font-family: "Pix32", monospace;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.page-work .work-modal-meta {
-  margin: 0 0 14px 0;
-  font-family: "Pix32", monospace;
-  font-size: 12px;
-  letter-spacing: 0.10em;
-  opacity: 0.65;
-}
-
-.page-work .work-modal-desc {
-  margin: 0 0 16px 0;
-  font-family: "Pix32", monospace;
-  font-size: 11px;
-  line-height: 1.7;
-  opacity: 0.4;
-}
-
-/* links/buttons */
-.page-work .work-modal-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 10px;
-}
-
-.page-work .work-modal-link {
-  font-family: "Pix32", monospace;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--ink);
-  opacity: 0.85;
-  padding: 4px 0;
-}
-
-.page-work .work-modal-link:hover {
-  opacity: 1;
-}
-
-/* ===============================
-   MOBILE
-================================ */
-
-@media (max-width: 860px) {
-  .page-work .work-stage {
-    padding: 18px;
-  }
-
-  .page-work .work-tile {
-    width: min(92vw, 560px);
-    grid-template-columns: 180px 1fr;
-  }
-
-  .page-work .work-modal-body {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* Cursor always above modals */
 .cursor {
   z-index: 50000 !important;
+  pointer-events: none !important;
 }
 
 .cursor-dot {
   z-index: 50001 !important;
+  pointer-events: none !important;
 }
 
 .spotlight {
   z-index: 40000 !important;
-  /* optional */
-}
-
-/* Ensure modal stays clickable even with cursor on top */
-.work-modal,
-.work-modal * {
-  pointer-events: auto;
-}
-
-/* Cursor should NEVER block clicks */
-.cursor,
-.cursor-dot,
-.spotlight {
   pointer-events: none !important;
 }
 
-
-/* Cursor container (ring) */
+/* Cursor ring */
 .cursor {
   position: fixed;
   width: 26px;
@@ -292,10 +123,9 @@
   border: 1px solid rgba(0, 0, 0, 0.8);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  pointer-events: none;
 }
 
-/* Cursor dot — always centered */
+/* Cursor dot */
 .cursor-dot {
   position: absolute;
   top: 50%;
@@ -305,22 +135,601 @@
   background: rgba(0, 0, 0, 0.9);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  pointer-events: none;
 }
 
-.work-modal-media {
+/* Dark mode cursor (optional, looks better) */
+html[data-theme="dark"] .cursor,
+body[data-theme="dark"] .cursor,
+body.dark .cursor,
+html.dark .cursor,
+body.is-dark .cursor,
+html.is-dark .cursor {
+  border-color: rgba(255, 255, 255, 0.72);
+}
+
+html[data-theme="dark"] .cursor-dot,
+body[data-theme="dark"] .cursor-dot,
+body.dark .cursor-dot,
+html.dark .cursor-dot,
+body.is-dark .cursor-dot,
+html.is-dark .cursor-dot {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* ===============================
+   FINDER SHELL
+================================ */
+.work-wrap {
+  height: calc(100vh - 56px);
   display: grid;
+  place-items: center;
+  padding: clamp(16px, 2.8vw, 32px);
+}
+
+.finder-shell {
+  width: min(1080px, calc(100vw - 28px));
+  height: min(720px, calc(100vh - 120px));
+  display: grid;
+  place-items: center;
+}
+
+.finder-window {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+
+  background: var(--finder-bg);
+  border: 1px solid var(--finder-border);
+  box-shadow: 0 30px 90px var(--finder-shadow);
+  backdrop-filter: blur(10px);
+}
+
+/* ===============================
+   TOOLBAR
+================================ */
+.finder-toolbar {
+  height: 54px;
+  display: grid;
+  grid-template-columns: 130px 1fr 130px;
+  align-items: center;
+  padding: 10px 14px;
+  gap: 10px;
+
+  background: var(--finder-toolbar);
+  border-bottom: 1px solid var(--finder-border-soft);
+}
+
+.traffic {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tl {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 0;
+}
+
+.tl-close {
+  background: rgba(255, 95, 86, 0.95);
+}
+
+.tl-min {
+  background: rgba(255, 189, 46, 0.95);
+}
+
+.tl-max {
+  background: rgba(39, 201, 63, 0.95);
+}
+
+.tl:disabled {
+  opacity: 0.55;
+}
+
+.finder-title {
+  text-align: center;
+  line-height: 1.1;
+  color: var(--finder-text);
+}
+
+.finder-title-main {
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.finder-title-sub {
+  display: block;
+  margin-top: 4px;
+  font-family: "Pix32", monospace;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  opacity: 0.55;
+  color: var(--finder-subtext);
+}
+
+.finder-toolbar-right {
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0.35;
+  color: var(--finder-subtext);
+}
+
+/* ===============================
+   CONTENT SPLIT
+================================ */
+.finder-content {
+  height: calc(100% - 54px);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+}
+
+/* ===============================
+   SIDEBAR
+================================ */
+.finder-sidebar {
+  border-right: 1px solid var(--finder-border-soft);
+  background: var(--finder-sidebar);
+  padding: 14px;
+}
+
+.sidebar-group-label {
+  font-family: "Pix32", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 10px;
+  color: var(--finder-muted);
+}
+
+.sidebar-list {
+  display: grid;
+  gap: 8px;
+}
+
+.sidebar-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  align-items: center;
+
+  border: 1px solid var(--finder-border-soft);
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 12px;
+  padding: 10px 10px;
+  cursor: pointer;
+
+  font-family: "Pix32", monospace;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+
+  color: var(--finder-text);
+  opacity: 0.82;
+  text-align: left;
+
+  transition: box-shadow 140ms ease, transform 140ms ease, background 140ms ease, opacity 140ms ease;
+}
+
+/* Dark-mode sidebar item base background */
+html[data-theme="dark"] .sidebar-item,
+body[data-theme="dark"] .sidebar-item,
+body.dark .sidebar-item,
+html.dark .sidebar-item,
+body.is-dark .sidebar-item,
+html.is-dark .sidebar-item {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-item i {
+  opacity: 0.7;
+}
+
+.sidebar-item:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px var(--finder-shadow-soft);
+}
+
+.sidebar-item.is-active {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: var(--finder-border);
+  box-shadow: 0 14px 34px var(--finder-shadow-soft);
+  opacity: 1;
+}
+
+/* Dark-mode active */
+html[data-theme="dark"] .sidebar-item.is-active,
+body[data-theme="dark"] .sidebar-item.is-active,
+body.dark .sidebar-item.is-active,
+html.dark .sidebar-item.is-active,
+body.is-dark .sidebar-item.is-active,
+html.is-dark .sidebar-item.is-active {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* ===============================
+   MAIN PANE
+================================ */
+.finder-main {
+  padding: 16px 16px 18px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  color: var(--finder-text);
+}
+
+.finder-main-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 6px 4px 12px;
+}
+
+.finder-main-title {
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  color: var(--finder-text);
+}
+
+.finder-main-hint {
+  font-family: "Pix32", monospace;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  opacity: 0.55;
+  color: var(--finder-subtext);
+}
+
+/* ===============================
+   FOLDERS GRID
+================================ */
+.folders-grid {
+  overflow: auto;
+  padding: 6px 4px 10px;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
   gap: 14px;
 }
 
-.work-modal-img {
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
+.folder {
+  border: 1px solid var(--finder-border-soft);
+  background: var(--finder-card);
+  border-radius: 16px;
+  padding: 14px 12px;
+  cursor: pointer;
+  text-align: left;
+
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 12px;
+  align-items: center;
+
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
-.page-work .site-header{
-  position: sticky;
-  top: 0;
-  z-index: 9999;
+.folder:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px var(--finder-shadow-soft);
+  background: var(--finder-card-hover);
+}
+
+.folder.is-selected {
+  outline: 2px solid rgba(0, 0, 0, 0.20);
+  outline-offset: 2px;
+}
+
+/* Dark mode selection outline */
+html[data-theme="dark"] .folder.is-selected,
+body[data-theme="dark"] .folder.is-selected,
+body.dark .folder.is-selected,
+html.dark .folder.is-selected,
+body.is-dark .folder.is-selected,
+html.is-dark .folder.is-selected {
+  outline-color: rgba(255, 255, 255, 0.28);
+}
+
+.folder-icon {
+  width: 44px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.06);
+  display: grid;
+  place-items: center;
+}
+
+/* Dark mode icon chip */
+html[data-theme="dark"] .folder-icon,
+body[data-theme="dark"] .folder-icon,
+body.dark .folder-icon,
+html.dark .folder-icon,
+body.is-dark .folder-icon,
+html.is-dark .folder-icon {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.folder-icon svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.75;
+  color: var(--finder-text);
+}
+
+.folder-title {
+  font-family: "Pix32", monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.90;
+  color: var(--finder-text);
+}
+
+.folder-meta {
+  margin-top: 6px;
+  font-family: "Pix32", monospace;
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  opacity: 0.55;
+  color: var(--finder-subtext);
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+.empty-state {
+  display: grid;
+  place-items: center;
+  padding: 30px 16px;
+}
+
+.empty-title {
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.80;
+  color: var(--finder-text);
+}
+
+.empty-sub {
+  margin-top: 10px;
+  font-family: "Pix32", monospace;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  opacity: 0.60;
+  text-align: center;
+  max-width: 44ch;
+  color: var(--finder-subtext);
+}
+
+/* ===============================
+   MODAL (iOS/macOS-ish pop window)
+================================ */
+.ios-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: none;
+}
+
+.ios-modal.is-open {
+  display: block;
+}
+
+.ios-modal,
+.ios-modal * {
+  pointer-events: auto;
+}
+
+.ios-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(8px);
+}
+
+/* Dark mode backdrop */
+html[data-theme="dark"] .ios-modal-backdrop,
+body[data-theme="dark"] .ios-modal-backdrop,
+body.dark .ios-modal-backdrop,
+html.dark .ios-modal-backdrop,
+body.is-dark .ios-modal-backdrop,
+html.is-dark .ios-modal-backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.ios-modal-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  width: min(980px, calc(100vw - 28px));
+  max-height: min(84vh, 860px);
+
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--finder-border);
+  border-radius: 18px;
+  box-shadow: 0 30px 90px var(--finder-shadow);
+  overflow: hidden;
+}
+
+/* Dark mode card */
+html[data-theme="dark"] .ios-modal-card,
+body[data-theme="dark"] .ios-modal-card,
+body.dark .ios-modal-card,
+html.dark .ios-modal-card,
+body.is-dark .ios-modal-card,
+html.is-dark .ios-modal-card {
+  background: rgba(18, 18, 18, 0.86);
+}
+
+.ios-modal-topbar {
+  display: grid;
+  grid-template-columns: 130px 1fr 120px;
+  align-items: center;
+  padding: 12px 14px;
+  gap: 10px;
+
+  background: var(--finder-toolbar);
+  border-bottom: 1px solid var(--finder-border-soft);
+}
+
+.ios-modal-title {
+  text-align: center;
+  line-height: 1.1;
+  color: var(--finder-text);
+}
+
+#modalTitle {
+  display: block;
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  color: var(--finder-text);
+}
+
+.ios-modal-meta {
+  display: block;
+  margin-top: 4px;
+  font-family: "Pix32", monospace;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  opacity: 0.60;
+  color: var(--finder-subtext);
+}
+
+.ios-x {
+  justify-self: end;
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  color: var(--finder-text);
+}
+
+.ios-x:hover {
+  opacity: 1;
+}
+
+/* Scrollable body */
+.ios-modal-body {
+  max-height: calc(min(84vh, 860px) - 54px);
+  overflow: auto;
+  padding: 16px;
+
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 16px;
+}
+
+/* Media supports multiple images + youtube */
+.ios-media {
+  display: grid;
+  gap: 12px;
+}
+
+.ios-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  box-shadow: 0 14px 36px var(--finder-shadow-soft);
+}
+
+.ios-media iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 36px var(--finder-shadow-soft);
+}
+
+/* Text */
+.ios-text {
+  padding-top: 4px;
+}
+
+.ios-desc {
+  margin: 0 0 14px 0;
+  font-family: "Pix32", monospace;
+  font-size: 11px;
+  line-height: 1.75;
+  letter-spacing: 0.06em;
+  opacity: 0.55;
+  white-space: pre-wrap;
+  color: var(--finder-subtext);
+}
+
+/* Links */
+.ios-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.ios-link {
+  font-family: "Pix32", monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--work-link);
+  opacity: 0.85;
+  padding: 4px 0;
+}
+
+.ios-link:hover {
+  opacity: 1;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
+  .finder-content {
+    grid-template-columns: 1fr;
+  }
+
+  .finder-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--finder-border-soft);
+  }
+
+  .folders-grid {
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+  }
+
+  .ios-modal-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .folders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .finder-toolbar {
+    grid-template-columns: 110px 1fr 80px;
+  }
 }

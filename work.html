@@ -1,45 +1,36 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>aiyanna's work</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="imgs/favicon-16.png">
-
-  <!-- Your global site styles (keep your existing styles.css) -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Finder work page styles -->
   <link rel="stylesheet" href="work.css" />
-
-  <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-
 <body class="page-work">
 
-  <!-- Cursor + spotlight (kept) -->
   <div class="cursor">
     <div class="cursor-dot"></div>
   </div>
   <div class="spotlight"></div>
 
-  <!-- Stars (kept) -->
   <canvas id="workSky" aria-hidden="true"></canvas>
 
-  <!-- Header (kept) -->
   <header class="site-header">
     <nav class="nav">
       <div class="nav-left">
         <a class="nav-link underline" href="about.html">about</a>
         <a class="nav-link underline is-active" href="work.html">work</a>
         <a class="nav-link underline" href="proj-index.html">index</a>
-        <button class="theme-toggle underline" type="button" id="themeToggle" aria-label="Toggle dark mode"
-          aria-pressed="false">
+        <button
+          class="theme-toggle underline"
+          type="button"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+          aria-pressed="false"
+        >
           ☾
         </button>
       </div>
@@ -57,91 +48,65 @@
     </nav>
   </header>
 
-  <main class="work-wrap">
-    <!-- Finder window -->
-    <section class="finder-shell" aria-label="Work Finder">
-      <div class="finder-window" role="application" aria-label="Finder window">
-        <!-- Toolbar -->
-        <div class="finder-toolbar">
-          <div class="traffic">
-            <button class="tl tl-close" type="button" aria-label="Close window (does nothing)"></button>
-            <button class="tl tl-min" type="button" aria-label="Minimize window (does nothing)"></button>
-            <button class="tl tl-max" type="button" aria-label="Zoom window (does nothing)"></button>
-          </div>
+  <main class="work-page-shell">
+    <section class="archive-shell" aria-label="Selected work">
+      <!-- <div class="archive-browser-bar"> -->
+        <!-- <div class="browser-icons">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div> -->
+        <!-- <div class="browser-strip"></div>
+      </div> -->
 
-          <div class="finder-title">
-            <span class="finder-title-main">work</span>
-            <span class="finder-title-sub" id="finderBreadcrumb">/ Brand + Commerce</span>
-          </div>
-
-          <div class="finder-toolbar-right" aria-hidden="true">
-            <!-- <i data-lucide="search"></i> -->
-          </div>
-        </div>
-
-        <!-- Content -->
-        <div class="finder-content">
-          <!-- Sidebar -->
-          <aside class="finder-sidebar" aria-label="Categories">
-            <div class="sidebar-group">
-              <div class="sidebar-group-label">categories</div>
-              <nav class="sidebar-list" id="categoryList"></nav>
-            </div>
-          </aside>
-
-          <!-- Main pane -->
-          <section class="finder-main" aria-label="Projects">
-            <div class="finder-main-header">
-              <div class="finder-main-title" id="paneTitle">Brand + Commerce</div>
-              <div class="finder-main-hint">double-click a folder to open</div>
-            </div>
-
-            <div class="folders-grid" id="foldersGrid" role="list"></div>
-
-            <div class="empty-state" id="emptyState" hidden>
-              <!-- <div class="empty-title">nothing here yet</div>
-              <div class="empty-sub">add projects to this category whenever you want.</div> -->
-            </div>
-          </section>
-        </div>
+      <div class="archive-topbar">
+        <nav class="archive-nav" id="categoryList" aria-label="Categories"></nav>
       </div>
+
+      <div class="archive-subnav">
+        <button class="archive-subnav-button" type="button" aria-disabled="true">On View</button>
+      </div>
+
+        <div class="projects-carousel-shell">
+  <button class="projects-arrow projects-arrow-left" id="projectsArrowLeft" type="button" aria-label="Scroll left">←</button>
+  <button class="projects-arrow projects-arrow-right" id="projectsArrowRight" type="button" aria-label="Scroll right">→</button>
+
+  <section class="projects-grid" id="projectsGrid" aria-label="Projects"></section>
+</div>
+
+      <!-- <section class="projects-grid" id="projectsGrid" aria-label="Projects"></section> -->
     </section>
   </main>
 
-  <!-- Project modal -->
-  <div class="ios-modal" id="projectModal" aria-hidden="true">
-    <div class="ios-modal-backdrop" data-close></div>
+  <div class="project-modal" id="projectModal" aria-hidden="true">
+    <div class="project-modal-backdrop" data-close></div>
 
-    <div class="ios-modal-card" role="dialog" aria-modal="true" aria-label="Project details">
-      <div class="ios-modal-topbar">
-        <div class="traffic">
-          <button class="tl tl-close" type="button" data-close aria-label="Close"></button>
-          <button class="tl tl-min" type="button" aria-label="Minimize (visual only)" disabled></button>
-          <button class="tl tl-max" type="button" aria-label="Zoom (visual only)" disabled></button>
-        </div>
-
-        <div class="ios-modal-title">
-          <span id="modalTitle">Project</span>
-          <span id="modalMeta" class="ios-modal-meta">Meta</span>
-        </div>
-
-        <button class="ios-x underline" type="button" data-close aria-label="Close">close</button>
+    <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="project-modal-topbar">
+        <button class="project-modal-close" type="button" data-close aria-label="Close">×</button>
       </div>
 
-      <div class="ios-modal-body">
-        <div class="ios-media" id="modalMedia"></div>
+      <div class="project-modal-body">
+        <div class="project-pairing" id="modalLayout">
+          <div class="project-visual-panel">
+            <div class="project-hero-wrap" id="modalImageWrap"></div>
+            <div class="project-video-overlay" id="modalVideoWrap"></div>
+          </div>
 
-        <div class="ios-text">
-          <p id="modalDesc" class="ios-desc"></p>
-          <div class="ios-links" id="modalLinks"></div>
+          <aside class="project-copy-panel">
+            <div class="project-copy-block">
+              <div class="project-popup-title" id="modalTitle">Project</div>
+              <div class="project-popup-meta" id="modalMeta"></div>
+              <p class="project-popup-desc" id="modalDesc"></p>
+              <div class="project-popup-links" id="modalLinks"></div>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Your scripts -->
   <script src="work.js"></script>
   <script src="script.js"></script>
 </body>
-
 </html>
